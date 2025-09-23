@@ -1,0 +1,10 @@
+[gd_scene load_steps=2 format=3 uid="uid://6ap31gpjxoje"]
+
+[ext_resource type="PackedScene" uid="uid://dl840d6u1xlim" path="res://_game_lib/environment/scns/soil.tscn" id="1_jx0gs"]
+
+[node name="Environment" type="Node2D"]
+
+[node name="Soil" parent="." instance=ExtResource("1_jx0gs")]
+
+[node name="Soil2" parent="." instance=ExtResource("1_jx0gs")]
+position = Vector2(90, 0)

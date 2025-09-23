@@ -1,0 +1,60 @@
+[gd_scene format=3 uid="uid://cq63k3q2vrjw7"]
+
+[node name="MainGameUI" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="BGColor" type="ColorRect" parent="CanvasLayer"]
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -148.0
+grow_horizontal = 2
+grow_vertical = 0
+color = Color(0.40950993, 0.28947422, 0.083605, 1)
+
+[node name="GridContainer" type="GridContainer" parent="CanvasLayer"]
+layout_direction = 2
+anchors_preset = -1
+anchor_top = 0.6
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 8.215407
+offset_top = 55.505127
+offset_right = 0.21539307
+offset_bottom = -0.00048828125
+rotation = -0.004440896
+size_flags_horizontal = 3
+theme_override_constants/h_separation = 4
+columns = 4
+
+[node name="Button" type="Button" parent="CanvasLayer/GridContainer"]
+custom_minimum_size = Vector2(61.68, 31.675)
+layout_mode = 2
+theme_override_font_sizes/font_size = 10
+text = "TOMATO"
+
+[node name="Button2" type="Button" parent="CanvasLayer/GridContainer"]
+custom_minimum_size = Vector2(61.68, 0)
+layout_mode = 2
+theme_override_font_sizes/font_size = 10
+text = "POTATO"
+
+[node name="Button3" type="Button" parent="CanvasLayer/GridContainer"]
+custom_minimum_size = Vector2(61.68, 0)
+layout_mode = 2
+theme_override_font_sizes/font_size = 10
+text = "WHEAT"
+
+[node name="Button4" type="Button" parent="CanvasLayer/GridContainer"]
+custom_minimum_size = Vector2(61.68, 0)
+layout_mode = 2
+theme_override_font_sizes/font_size = 10
+text = "CABBAGE"
