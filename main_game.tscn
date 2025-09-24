@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=4 uid="uid://bmjyd0h33u0rw"]
+[gd_scene load_steps=23 format=4 uid="uid://bmjyd0h33u0rw"]
 
 [ext_resource type="PackedScene" uid="uid://cdo0q7a8bqakc" path="res://_game_lib/player/player.tscn" id="1_1oj5k"]
 [ext_resource type="Texture2D" uid="uid://bdqruopno2fn6" path="res://_game_lib/environment/graphics/Tileset Grass Spring.png" id="1_2pltu"]
@@ -10,6 +10,7 @@
 [ext_resource type="Texture2D" uid="uid://1t8xvnv3fwe3" path="res://_game_lib/environment/graphics/Shadow.png" id="4_4srsv"]
 [ext_resource type="PackedScene" uid="uid://dl840d6u1xlim" path="res://_game_lib/environment/scns/soil.tscn" id="4_dugkq"]
 [ext_resource type="Script" uid="uid://d07wtp1omvvt5" path="res://_game_lib/environment/scripts/bonfire.gd" id="5_mf81u"]
+[ext_resource type="Texture2D" uid="uid://dopvry7q4egfq" path="res://_game_lib/environment/graphics/Moai.png" id="6_02kkc"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_f52ns"]
 texture = ExtResource("1_2pltu")
@@ -1381,6 +1382,10 @@ sprite_frames = SubResource("SpriteFrames_f52ns")
 animation = &"idle"
 frame_progress = 0.49392602
 script = ExtResource("5_mf81u")
+
+[node name="Moai" type="Sprite2D" parent="Props"]
+position = Vector2(251, 73)
+texture = ExtResource("6_02kkc")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 layer = -50
