@@ -1,132 +1,53 @@
-[gd_scene load_steps=5 format=3 uid="uid://dl840d6u1xlim"]
+[gd_scene load_steps=8 format=3 uid="uid://dl840d6u1xlim"]
 
 [ext_resource type="Script" uid="uid://b5fblmxsythel" path="res://_game_lib/environment/scns/plot.gd" id="1_di07m"]
 [ext_resource type="Texture2D" uid="uid://cn6acfckeha77" path="res://_game_lib/environment/graphics/ground_green_tileset.png" id="1_gbhl1"]
-[ext_resource type="Script" uid="uid://cxawmvog0knq4" path="res://_game_lib/environment/plot_manager.gd" id="1_plot_manager"]
-[ext_resource type="Texture2D" uid="uid://bjn804i0ihcyd" path="res://_game_lib/environment/seeds/tomato/tomato.png" id="4_5er8q"]
+[ext_resource type="Texture2D" uid="uid://ctncah4gydbca" path="res://_game_lib/UI/graphics/square_selection/UI_Flat_Select02a_1.png" id="4_c1li5"]
+[ext_resource type="Texture2D" uid="uid://6nth7j7n5ycd" path="res://_game_lib/UI/graphics/square_selection/UI_Flat_Select02a_2.png" id="5_2m2w3"]
+[ext_resource type="Texture2D" uid="uid://3oplbd6s5x1u" path="res://_game_lib/UI/graphics/square_selection/UI_Flat_Select02a_3.png" id="6_3ymbf"]
+[ext_resource type="Texture2D" uid="uid://db6ns2r0nd80g" path="res://_game_lib/UI/graphics/square_selection/UI_Flat_Select02a_4.png" id="7_7sv5m"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_xuk5j"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("4_c1li5")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_2m2w3")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_3ymbf")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_7sv5m")
+}],
+"loop": true,
+"name": &"active",
+"speed": 8.0
+}]
 
 [node name="Soil" type="Node2D"]
-script = ExtResource("1_plot_manager")
-
-[node name="Plot1" type="Node2D" parent="."]
-position = Vector2(0, -10)
-scale = Vector2(1.5, 1.5)
-script = ExtResource("1_di07m")
-plot_id = null
-
-[node name="Sprite2D" type="Sprite2D" parent="Plot1"]
-position = Vector2(-17.333334, -10.666667)
-texture = ExtResource("1_gbhl1")
-hframes = 4
-vframes = 4
-frame = 6
-
-[node name="PlantSprite" type="Sprite2D" parent="Plot1"]
-position = Vector2(-17.333334, -15.499999)
-scale = Vector2(0.75, 0.6979166)
-texture = ExtResource("4_5er8q")
-hframes = 6
 
 [node name="Plot2" type="Node2D" parent="."]
-position = Vector2(0, -10)
+position = Vector2(-26, 0)
 scale = Vector2(1.5, 1.5)
 script = ExtResource("1_di07m")
-plot_id = null
 
-[node name="Sprite2D" type="Sprite2D" parent="Plot2"]
-position = Vector2(0, -10.666667)
+[node name="GroundSprite" type="Sprite2D" parent="Plot2"]
 texture = ExtResource("1_gbhl1")
 hframes = 4
 vframes = 4
 frame = 6
 
-[node name="Plot3" type="Node2D" parent="."]
-position = Vector2(0, -10)
-scale = Vector2(1.5, 1.5)
-script = ExtResource("1_di07m")
-plot_id = null
+[node name="PlantSprite" type="Sprite2D" parent="Plot2"]
+position = Vector2(0, -5.333333)
+scale = Vector2(0.75, 0.6979166)
+hframes = 6
 
-[node name="Sprite2D" type="Sprite2D" parent="Plot3"]
-position = Vector2(17.333334, -10.666667)
-texture = ExtResource("1_gbhl1")
-hframes = 4
-vframes = 4
-frame = 6
-
-[node name="Plot4" type="Node2D" parent="."]
-position = Vector2(0, -10)
-scale = Vector2(1.5, 1.5)
-script = ExtResource("1_di07m")
-plot_id = null
-
-[node name="Sprite2D" type="Sprite2D" parent="Plot4"]
-position = Vector2(-17.333334, 6.666667)
-texture = ExtResource("1_gbhl1")
-hframes = 4
-vframes = 4
-frame = 6
-
-[node name="Plot5" type="Node2D" parent="."]
-position = Vector2(0, -10)
-scale = Vector2(1.5, 1.5)
-script = ExtResource("1_di07m")
-plot_id = null
-
-[node name="Sprite2D" type="Sprite2D" parent="Plot5"]
-position = Vector2(0, 6.666667)
-texture = ExtResource("1_gbhl1")
-hframes = 4
-vframes = 4
-frame = 6
-
-[node name="Plot6" type="Node2D" parent="."]
-position = Vector2(0, -10)
-scale = Vector2(1.5, 1.5)
-script = ExtResource("1_di07m")
-plot_id = null
-
-[node name="Sprite2D" type="Sprite2D" parent="Plot6"]
-position = Vector2(17.333334, 6.666667)
-texture = ExtResource("1_gbhl1")
-hframes = 4
-vframes = 4
-frame = 6
-
-[node name="Plot7" type="Node2D" parent="."]
-position = Vector2(0, -10)
-scale = Vector2(1.5, 1.5)
-script = ExtResource("1_di07m")
-plot_id = null
-
-[node name="Sprite2D" type="Sprite2D" parent="Plot7"]
-position = Vector2(-17.333334, 24)
-texture = ExtResource("1_gbhl1")
-hframes = 4
-vframes = 4
-frame = 6
-
-[node name="Plot8" type="Node2D" parent="."]
-position = Vector2(0, -10)
-scale = Vector2(1.5, 1.5)
-script = ExtResource("1_di07m")
-plot_id = null
-
-[node name="Sprite2D" type="Sprite2D" parent="Plot8"]
-position = Vector2(0, 24)
-texture = ExtResource("1_gbhl1")
-hframes = 4
-vframes = 4
-frame = 6
-
-[node name="Plot9" type="Node2D" parent="."]
-position = Vector2(0, -10)
-scale = Vector2(1.5, 1.5)
-script = ExtResource("1_di07m")
-plot_id = null
-
-[node name="Sprite2D" type="Sprite2D" parent="Plot9"]
-position = Vector2(17.333334, 24)
-texture = ExtResource("1_gbhl1")
-hframes = 4
-vframes = 4
-frame = 6
+[node name="AnimatedSelection" type="AnimatedSprite2D" parent="Plot2"]
+position = Vector2(0, -5.9604645e-08)
+scale = Vector2(0.5, 0.5)
+sprite_frames = SubResource("SpriteFrames_xuk5j")
+animation = &"active"
+frame_progress = 0.5413395

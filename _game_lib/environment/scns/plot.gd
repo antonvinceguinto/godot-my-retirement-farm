@@ -6,7 +6,11 @@ const PLANT_INSTANCE = preload("res://_game_lib/environment/plant_instance.gd");
 const PLANT_SPRITE = preload("res://_game_lib/environment/plant_sprite.gd");
 
 @export var plot_id: int = 0;
-@onready var soil_sprite: Sprite2D = $Sprite2D;
+
+@onready var soil_sprite: Sprite2D = $GroundSprite;
+@onready var plant_sprite: Sprite2D =	$PlantSprite;
+@onready var parent_soil: Node = get_parent();
+
 #@onready var plant_sprite: PLANT_SPRITE = $PlantSprite;
 
 var current_plant: PLANT_INSTANCE = null;
@@ -23,6 +27,10 @@ func _ready() -> void:
 	# Set empty plot frame initially
 	if soil_sprite:
 		soil_sprite.frame = 6; # Empty soil frame
+	
+	# Animation selection
+	$AnimatedSelection.play("active");
+	$AnimatedSelection.visible = false;
 	
 	# Ensure plant sprite starts hidden
 	#if plant_sprite:
@@ -48,8 +56,9 @@ func is_mouse_over_plot(mouse_pos: Vector2) -> bool:
 	return bounds.has_point(mouse_pos);
 
 func plant_seed(crop_data: CROP_DATA) -> bool:
+	# Already has a plant
 	if is_planted:
-		return false; # Already has a plant
+		return false;
 	
 	# Create plant instance for growth logic
 	current_plant = PLANT_INSTANCE.new(crop_data).CropType;
@@ -71,21 +80,26 @@ func _process(delta: float) -> void:
 	if current_plant and is_planted:
 		current_plant.update_growth(delta);
 
+
 func _on_plant_growth(new_stage: CROP_DATA.GrowthStage) -> void:
 	# When the plant logic advances, update the visual sprite
 	#if plant_sprite:
 		#plant_sprite.advance_stage();
 	print("Plot ", plot_id, " plant stage changed to: ", new_stage);
 
+
 func _on_plant_visual_stage_changed(new_stage: CROP_DATA.GrowthStage) -> void:
 	# Visual feedback when plant sprite changes
 	print("Plot ", plot_id, " visual stage updated to: ", new_stage);
 
+
 func _on_plant_visual_matured() -> void:
 	print("Plot ", plot_id, " plant visual is mature!");
 
+
 func _on_plant_matured() -> void:
 	print("Plot ", plot_id, " plant is now mature and ready for harvest!");
+
 
 func harvest() -> CROP_DATA.CropType:
 	if not is_planted or not current_plant.is_mature():
@@ -104,11 +118,14 @@ func harvest() -> CROP_DATA.CropType:
 	plant_harvested.emit(self, harvested_crop);
 	return harvested_crop;
 
+
 func set_selected(selected: bool) -> void:
 	is_selected = selected;
-	# Could add visual feedback for selection here
-	if soil_sprite:
-		soil_sprite.modulate = Color.WHITE if not selected else Color(1.2, 1.2, 1.2, 1.0);
+	$AnimatedSelection.visible = selected;
+	
+
+func play_selected_animation() -> void:
+	$AnimatedSelection.visible = true;
 
 func get_plant_info() -> Dictionary:
 	if not is_planted:

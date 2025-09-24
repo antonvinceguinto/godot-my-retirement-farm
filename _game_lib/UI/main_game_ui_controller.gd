@@ -1,7 +1,7 @@
 class_name MainGameUIController
 extends Control
 
-signal seed_selected(crop_type: CROP_DATA.CropType);
+signal seed_selected(crop_data: CROP_DATA);
 
 const CROP_DATA = preload("res://_game_lib/environment/crop_data.gd");
 const PLOT_MANAGER = preload("res://_game_lib/environment/plot_manager.gd");
@@ -26,37 +26,36 @@ func _ready() -> void:
 		cabbage_button.pressed.connect(_on_cabbage_selected);
 	
 	# Find plot manager
-	#plot_manager = get_node("$Soil") as PLOT_MANAGER;
-	#if plot_manager:
-		#print("XXXXX ASD");
-		#seed_selected.connect(plot_manager._on_seed_selected);
+	plot_manager = get_tree().root.get_node("MainGame/Environment") as PLOT_MANAGER;
+	if plot_manager:
+		seed_selected.connect(plot_manager._on_seed_selected);
 	
 	# Set initial selection
 	update_button_selection();
 
 func _on_tomato_selected() -> void:
 	selected_crop = CROP_DATA.CropType.TOMATO;
-	seed_selected.emit(selected_crop);
+	seed_selected.emit(CROP_DATA.get_crop_data(selected_crop));
 	update_button_selection();
 	print("Selected crop: TOMATO");
 
 func _on_potato_selected() -> void:
 	selected_crop = CROP_DATA.CropType.POTATO;
-	seed_selected.emit(selected_crop);
+	seed_selected.emit(CROP_DATA.get_crop_data(selected_crop));
 	update_button_selection();
-	print("Selected crop: Potato");
+	print("Selected crop: POTATO");
 
 func _on_wheat_selected() -> void:
 	selected_crop = CROP_DATA.CropType.WHEAT;
-	seed_selected.emit(selected_crop);
+	seed_selected.emit(CROP_DATA.get_crop_data(selected_crop));
 	update_button_selection();
-	print("Selected crop: Wheat");
+	print("Selected crop: WHEAT");
 
 func _on_cabbage_selected() -> void:
 	selected_crop = CROP_DATA.CropType.CABBAGE;
-	seed_selected.emit(selected_crop);
+	seed_selected.emit(CROP_DATA.get_crop_data(selected_crop));
 	update_button_selection();
-	print("Selected crop: Cabbage");
+	print("Selected crop: CABBAGE");
 
 func update_button_selection() -> void:
 	# Reset all buttons

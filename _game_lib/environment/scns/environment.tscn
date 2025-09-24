@@ -1,10 +1,15 @@
-[gd_scene load_steps=2 format=3 uid="uid://6ap31gpjxoje"]
+[gd_scene load_steps=3 format=3 uid="uid://c5bndvpo544h4"]
 
+[ext_resource type="Script" uid="uid://cxawmvog0knq4" path="res://_game_lib/environment/plot_manager.gd" id="1_dlmdi"]
 [ext_resource type="PackedScene" uid="uid://dl840d6u1xlim" path="res://_game_lib/environment/scns/soil.tscn" id="1_jx0gs"]
 
 [node name="Environment" type="Node2D"]
+script = ExtResource("1_dlmdi")
 
 [node name="Soil" parent="." instance=ExtResource("1_jx0gs")]
 
 [node name="Soil2" parent="." instance=ExtResource("1_jx0gs")]
 position = Vector2(90, 0)
+
+[node name="Soil3" parent="." instance=ExtResource("1_jx0gs")]
+position = Vector2(182, 0)
