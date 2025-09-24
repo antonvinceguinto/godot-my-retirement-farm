@@ -13,69 +13,66 @@ const PLOT_MANAGER = preload("res://_game_lib/environment/plot_manager.gd");
 
 var selected_crop = null;
 var plot_manager: PLOT_MANAGER;
+var crop_button_map: Dictionary = {};
+var buttons_array: Array[Button] = [];
 
 func _ready() -> void:
-	# Connect button signals
-	if tomato_button:
-		tomato_button.pressed.connect(_on_tomato_selected);
-	if potato_button:
-		potato_button.pressed.connect(_on_potato_selected);
-	if wheat_button:
-		wheat_button.pressed.connect(_on_wheat_selected);
-	if cabbage_button:
-		cabbage_button.pressed.connect(_on_cabbage_selected);
-	
+	# Initialize button mappings
+	_initialize_button_mappings();
+
+	# Connect button signals using generic handler
+	_connect_button_signals();
+
 	# Find plot manager
 	plot_manager = get_tree().root.get_node("MainGame/Environment") as PLOT_MANAGER;
 	if plot_manager:
 		seed_selected.connect(plot_manager._on_seed_selected);
-	
+
 	# Set initial selection
 	update_button_selection();
 
-func _on_tomato_selected() -> void:
-	selected_crop = CROP_DATA.CropType.TOMATO;
-	seed_selected.emit(CROP_DATA.get_crop_data(selected_crop));
-	update_button_selection();
-	print("Selected crop: TOMATO");
+func _initialize_button_mappings() -> void:
+	# Create mapping between crop types and buttons
+	crop_button_map[CROP_DATA.CropType.TOMATO] = tomato_button;
+	crop_button_map[CROP_DATA.CropType.POTATO] = potato_button;
+	crop_button_map[CROP_DATA.CropType.WHEAT] = wheat_button;
+	crop_button_map[CROP_DATA.CropType.CABBAGE] = cabbage_button;
 
-func _on_potato_selected() -> void:
-	selected_crop = CROP_DATA.CropType.POTATO;
-	seed_selected.emit(CROP_DATA.get_crop_data(selected_crop));
-	update_button_selection();
-	print("Selected crop: POTATO");
+	# Create array of all buttons for batch operations
+	buttons_array = [tomato_button, potato_button, wheat_button, cabbage_button];
 
-func _on_wheat_selected() -> void:
-	selected_crop = CROP_DATA.CropType.WHEAT;
-	seed_selected.emit(CROP_DATA.get_crop_data(selected_crop));
-	update_button_selection();
-	print("Selected crop: WHEAT");
+func _connect_button_signals() -> void:
+	# Connect all buttons to the same generic handler
+	if tomato_button:
+		tomato_button.pressed.connect(_on_crop_selected.bind(CROP_DATA.CropType.TOMATO));
+	if potato_button:
+		potato_button.pressed.connect(_on_crop_selected.bind(CROP_DATA.CropType.POTATO));
+	if wheat_button:
+		wheat_button.pressed.connect(_on_crop_selected.bind(CROP_DATA.CropType.WHEAT));
+	if cabbage_button:
+		cabbage_button.pressed.connect(_on_crop_selected.bind(CROP_DATA.CropType.CABBAGE));
 
-func _on_cabbage_selected() -> void:
-	selected_crop = CROP_DATA.CropType.CABBAGE;
-	seed_selected.emit(CROP_DATA.get_crop_data(selected_crop));
+func _on_crop_selected(crop_type: CROP_DATA.CropType) -> void:
+	# Toggle selection logic
+	if selected_crop == crop_type:
+		selected_crop = null;
+		seed_selected.emit(null);
+	else:
+		selected_crop = crop_type;
+		seed_selected.emit(CROP_DATA.get_crop_data(selected_crop));
+
 	update_button_selection();
-	print("Selected crop: CABBAGE");
+
 
 func update_button_selection() -> void:
-	# Reset all buttons
-	var buttons: Array[Button] = [tomato_button, potato_button, wheat_button, cabbage_button];
-	
-	for button: Button in buttons:
+	# Reset all buttons to default color
+	for button: Button in buttons_array:
 		if button:
 			button.modulate = Color.WHITE;
+
+	# Highlight selected button using the mapping
+	if selected_crop != null and crop_button_map.has(selected_crop):
+		var selected_button: Button = crop_button_map[selected_crop];
+		if selected_button:
+			selected_button.modulate = Color(0.8, 1.0, 0.8, 1.0); # Green tint for selected
 	
-	# Highlight selected button
-	var selected_button: Button;
-	match selected_crop:
-		CROP_DATA.CropType.TOMATO:
-			selected_button = tomato_button;
-		CROP_DATA.CropType.POTATO:
-			selected_button = potato_button;
-		CROP_DATA.CropType.WHEAT:
-			selected_button = wheat_button;
-		CROP_DATA.CropType.CABBAGE:
-			selected_button = cabbage_button;
-	
-	if selected_button:
-		selected_button.modulate = Color(0.8, 1.0, 0.8, 1.0); # Green tint for selected

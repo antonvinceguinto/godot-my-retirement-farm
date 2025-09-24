@@ -50,4 +50,49 @@ position = Vector2(0, -5.9604645e-08)
 scale = Vector2(0.5, 0.5)
 sprite_frames = SubResource("SpriteFrames_xuk5j")
 animation = &"active"
-frame_progress = 0.5413395
+frame_progress = 0.70799035
+
+[node name="Plot3" type="Node2D" parent="."]
+scale = Vector2(1.5, 1.5)
+script = ExtResource("1_di07m")
+
+[node name="GroundSprite" type="Sprite2D" parent="Plot3"]
+texture = ExtResource("1_gbhl1")
+hframes = 4
+vframes = 4
+frame = 6
+
+[node name="PlantSprite" type="Sprite2D" parent="Plot3"]
+position = Vector2(0, -5.333333)
+scale = Vector2(0.75, 0.6979166)
+hframes = 6
+
+[node name="AnimatedSelection" type="AnimatedSprite2D" parent="Plot3"]
+position = Vector2(0, -5.9604645e-08)
+scale = Vector2(0.5, 0.5)
+sprite_frames = SubResource("SpriteFrames_xuk5j")
+animation = &"active"
+frame_progress = 0.39613268
+
+[node name="Plot4" type="Node2D" parent="."]
+position = Vector2(26, 0)
+scale = Vector2(1.5, 1.5)
+script = ExtResource("1_di07m")
+
+[node name="GroundSprite" type="Sprite2D" parent="Plot4"]
+texture = ExtResource("1_gbhl1")
+hframes = 4
+vframes = 4
+frame = 6
+
+[node name="PlantSprite" type="Sprite2D" parent="Plot4"]
+position = Vector2(0, -5.333333)
+scale = Vector2(0.75, 0.6979166)
+hframes = 6
+
+[node name="AnimatedSelection" type="AnimatedSprite2D" parent="Plot4"]
+position = Vector2(0, -5.9604645e-08)
+scale = Vector2(0.5, 0.5)
+sprite_frames = SubResource("SpriteFrames_xuk5j")
+animation = &"active"
+frame_progress = 0.39613268

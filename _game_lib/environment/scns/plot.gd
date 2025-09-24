@@ -61,7 +61,7 @@ func plant_seed(crop_data: CROP_DATA) -> bool:
 		return false;
 	
 	# Create plant instance for growth logic
-	current_plant = PLANT_INSTANCE.new(crop_data).CropType;
+	current_plant = PLANT_INSTANCE.new(crop_data);
 	is_planted = true;
 	
 	# Initialize visual representation
@@ -79,6 +79,9 @@ func plant_seed(crop_data: CROP_DATA) -> bool:
 func _process(delta: float) -> void:
 	if current_plant and is_planted:
 		current_plant.update_growth(delta);
+		
+		$AnimatedSelection.visible = false;
+
 
 
 func _on_plant_growth(new_stage: CROP_DATA.GrowthStage) -> void:
