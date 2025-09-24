@@ -10,7 +10,8 @@ config_version=5
 
 [application]
 
-config/name="My Retirement Farm"
+config/name="Retirement Farm"
+config/description="Help Ethan build his farm after he retired as a corporate job worker "
 run/main_scene="uid://bmjyd0h33u0rw"
 config/features=PackedStringArray("4.5", "Mobile")
 config/icon="res://icon.svg"
@@ -26,6 +27,10 @@ window/handheld/orientation=1
 [editor]
 
 movie_writer/movie_file="C:/Users/User/Downloads/TEST.avi"
+
+[physics]
+
+2d/description="Help Ethan build his farm after he retired as a corporate job employee "
 
 [rendering]
 

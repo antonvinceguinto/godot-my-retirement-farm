@@ -1368,23 +1368,22 @@ tile_set = SubResource("TileSet_dugkq")
 
 [node name="Props" type="TileMapLayer" parent="Props"]
 y_sort_enabled = true
-position = Vector2(0, 10)
-tile_map_data = PackedByteArray("AAAJAAQAAAAhAAEAAAA=")
+tile_map_data = PackedByteArray("AAAJAAcAAAAhAAEAAAA=")
 tile_set = SubResource("TileSet_2pltu")
 
 [node name="Shadow" type="Sprite2D" parent="Props"]
-position = Vector2(100, 79)
+position = Vector2(100, 116)
 texture = ExtResource("4_4srsv")
 
 [node name="Bonfire" type="AnimatedSprite2D" parent="Props"]
-position = Vector2(101, 87)
+position = Vector2(101, 124)
 sprite_frames = SubResource("SpriteFrames_f52ns")
 animation = &"idle"
 frame_progress = 0.49392602
 script = ExtResource("5_mf81u")
 
 [node name="Moai" type="Sprite2D" parent="Props"]
-position = Vector2(251, 73)
+position = Vector2(251, 97)
 texture = ExtResource("6_02kkc")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
@@ -1402,7 +1401,7 @@ color = Color(0, 0.3779552, 0, 1)
 script = ExtResource("2_6bm6p")
 
 [node name="PlotManager" parent="." instance=ExtResource("2_yx7mw")]
-position = Vector2(47, 155)
+position = Vector2(47, 181)
 
 [node name="Soil" parent="PlotManager" instance=ExtResource("4_dugkq")]
 position = Vector2(17, 0)
@@ -1417,4 +1416,4 @@ position = Vector2(17, 105)
 position = Vector2(178, 105)
 
 [node name="Player" parent="." instance=ExtResource("1_1oj5k")]
-position = Vector2(136, 87)
+position = Vector2(136, 134)
