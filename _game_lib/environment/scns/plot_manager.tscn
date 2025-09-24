@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://c5bndvpo544h4"]
+
+[ext_resource type="Script" uid="uid://cxawmvog0knq4" path="res://_game_lib/environment/plot_manager.gd" id="1_dlmdi"]
+
+[node name="PlotManager" type="Node2D"]
+script = ExtResource("1_dlmdi")

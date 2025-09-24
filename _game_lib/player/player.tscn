@@ -1,7 +1,25 @@
-[gd_scene load_steps=7 format=3 uid="uid://cdo0q7a8bqakc"]
+[gd_scene load_steps=13 format=3 uid="uid://cdo0q7a8bqakc"]
 
 [ext_resource type="Texture2D" uid="uid://c17wu507et3co" path="res://_game_lib/player/graphics/player_walk.png" id="1_4qrh0"]
-[ext_resource type="Script" path="res://_game_lib/player/player.gd" id="1_j8yhn"]
+[ext_resource type="Script" uid="uid://uiloue714u4c" path="res://_game_lib/player/player.gd" id="1_j8yhn"]
+[ext_resource type="Texture2D" uid="uid://1t8xvnv3fwe3" path="res://_game_lib/environment/graphics/Shadow.png" id="2_5ounq"]
+[ext_resource type="Texture2D" uid="uid://b0j0037jtng2s" path="res://_game_lib/player/graphics/player_idle.png" id="2_wyuhm"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7pnug"]
+atlas = ExtResource("2_wyuhm")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_dti7j"]
+atlas = ExtResource("2_wyuhm")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_opnf1"]
+atlas = ExtResource("2_wyuhm")
+region = Rect2(64, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_v21db"]
+atlas = ExtResource("2_wyuhm")
+region = Rect2(96, 0, 32, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_j8yhn"]
 atlas = ExtResource("1_4qrh0")
@@ -17,6 +35,23 @@ region = Rect2(64, 0, 32, 32)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_3krxk"]
 animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7pnug")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_dti7j")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_opnf1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_v21db")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 5.0
+}, {
 "frames": [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_j8yhn")
@@ -35,9 +70,14 @@ animations = [{
 [node name="Player" type="Node2D"]
 script = ExtResource("1_j8yhn")
 
+[node name="Shadow" type="Sprite2D" parent="."]
+position = Vector2(0, -3)
+scale = Vector2(0.63000005, 0.63000005)
+texture = ExtResource("2_5ounq")
+
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 unique_name_in_owner = true
 texture_filter = 1
 sprite_frames = SubResource("SpriteFrames_3krxk")
-animation = &"walk"
-frame_progress = 0.046458196
+animation = &"idle"
+frame_progress = 0.8894822

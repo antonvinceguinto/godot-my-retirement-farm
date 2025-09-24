@@ -3,15 +3,11 @@ extends Node2D
 
 const CROP_DATA = preload("res://_game_lib/environment/crop_data.gd");
 const PLANT_INSTANCE = preload("res://_game_lib/environment/plant_instance.gd");
-const PLANT_SPRITE = preload("res://_game_lib/environment/plant_sprite.gd");
 
 @export var plot_id: int = 0;
 
 @onready var soil_sprite: Sprite2D = $GroundSprite;
-@onready var plant_sprite: Sprite2D =	$PlantSprite;
-@onready var parent_soil: Node = get_parent();
-
-#@onready var plant_sprite: PLANT_SPRITE = $PlantSprite;
+@onready var plant_sprite: Sprite2D = $PlantSprite;
 
 var current_plant: PLANT_INSTANCE = null;
 var is_planted: bool = false;
@@ -24,17 +20,13 @@ func _ready() -> void:
 	# Add input detection
 	set_process_input(true);
 	
-	# Set empty plot frame initially
-	if soil_sprite:
-		soil_sprite.frame = 6; # Empty soil frame
-	
 	# Animation selection
-	$AnimatedSelection.play("active");
 	$AnimatedSelection.visible = false;
+	$GroundSprite.visible = false;
 	
 	# Ensure plant sprite starts hidden
-	#if plant_sprite:
-		#plant_sprite.visible = false;
+	if plant_sprite:
+		plant_sprite.visible = false;
 
 func _input(event: InputEvent) -> void:
 	if event is InputEventMouseButton:
@@ -63,16 +55,18 @@ func plant_seed(crop_data: CROP_DATA) -> bool:
 	# Create plant instance for growth logic
 	current_plant = PLANT_INSTANCE.new(crop_data);
 	is_planted = true;
+
+	# Show the watered ground
+	$GroundSprite.visible = true;
+
 	
 	# Initialize visual representation
-	#if plant_sprite:
-		#plant_sprite.initialize_plant(crop_type);
+	if plant_sprite:
+		plant_sprite.initialize_plant(crop_data.crop_type);
 		#plant_sprite.stage_changed.connect(_on_plant_visual_stage_changed);
 		#plant_sprite.plant_matured.connect(_on_plant_visual_matured);
-	
-	# Connect plant growth logic
-	current_plant.stage_changed.connect(_on_plant_growth);
-	current_plant.plant_matured.connect(_on_plant_matured);
+		current_plant.stage_changed.connect(_on_plant_growth);
+		current_plant.plant_matured.connect(_on_plant_matured);
 	
 	return true;
 
@@ -83,21 +77,11 @@ func _process(delta: float) -> void:
 		$AnimatedSelection.visible = false;
 
 
-
 func _on_plant_growth(new_stage: CROP_DATA.GrowthStage) -> void:
 	# When the plant logic advances, update the visual sprite
-	#if plant_sprite:
-		#plant_sprite.advance_stage();
+	if plant_sprite:
+		plant_sprite.advance_stage();
 	print("Plot ", plot_id, " plant stage changed to: ", new_stage);
-
-
-func _on_plant_visual_stage_changed(new_stage: CROP_DATA.GrowthStage) -> void:
-	# Visual feedback when plant sprite changes
-	print("Plot ", plot_id, " visual stage updated to: ", new_stage);
-
-
-func _on_plant_visual_matured() -> void:
-	print("Plot ", plot_id, " plant visual is mature!");
 
 
 func _on_plant_matured() -> void:
@@ -124,11 +108,11 @@ func harvest() -> CROP_DATA.CropType:
 
 func set_selected(selected: bool) -> void:
 	is_selected = selected;
-	$AnimatedSelection.visible = selected;
 	
-
-func play_selected_animation() -> void:
-	$AnimatedSelection.visible = true;
+	# Animation
+	$AnimatedSelection.visible = selected;
+	$AnimatedSelection.play("active");
+	
 
 func get_plant_info() -> Dictionary:
 	if not is_planted:

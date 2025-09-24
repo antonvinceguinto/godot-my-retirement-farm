@@ -1,4 +1,10 @@
-[gd_scene format=3 uid="uid://cq63k3q2vrjw7"]
+[gd_scene load_steps=6 format=3 uid="uid://cq63k3q2vrjw7"]
+
+[ext_resource type="FontFile" uid="uid://cg6bcxdg1ar2n" path="res://_game_lib/UI/CodersCrux.ttf" id="1_ei8b7"]
+[ext_resource type="Texture2D" uid="uid://cdv323cqfx4gi" path="res://_game_lib/environment/seeds/tomato/TomatoItem.png" id="2_iw66u"]
+[ext_resource type="Texture2D" uid="uid://dqe5p8wi8yrcg" path="res://_game_lib/environment/seeds/potato/PotatoItem.png" id="3_argpm"]
+[ext_resource type="Texture2D" uid="uid://kr4jiwuv665i" path="res://_game_lib/environment/seeds/wheat/WheatItem.png" id="4_argpm"]
+[ext_resource type="Texture2D" uid="uid://mfmfp8u6esow" path="res://_game_lib/environment/seeds/pumpkin/PumpkinItem.png" id="5_iw66u"]
 
 [node name="MainGameUI" type="Control"]
 layout_mode = 3
@@ -7,6 +13,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 1
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
@@ -15,46 +22,56 @@ anchors_preset = 12
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_top = -148.0
+offset_top = -137.0
 grow_horizontal = 2
 grow_vertical = 0
-color = Color(0.40950993, 0.28947422, 0.083605, 1)
+color = Color(0.3403393, 0.34033933, 0.3403393, 1)
 
-[node name="GridContainer" type="GridContainer" parent="CanvasLayer"]
+[node name="GridContainer" type="GridContainer" parent="CanvasLayer/BGColor"]
 layout_direction = 2
-anchors_preset = -1
-anchor_top = 0.6
+layout_mode = 1
+anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = 8.215407
-offset_top = 55.505127
-offset_right = 0.21539307
-offset_bottom = -0.00048828125
-rotation = -0.004440896
+grow_horizontal = 2
+grow_vertical = 2
 size_flags_horizontal = 3
+size_flags_vertical = 8
 theme_override_constants/h_separation = 4
 columns = 4
 
-[node name="Button" type="Button" parent="CanvasLayer/GridContainer"]
+[node name="Button" type="Button" parent="CanvasLayer/BGColor/GridContainer"]
+texture_filter = 1
 custom_minimum_size = Vector2(61.68, 31.675)
 layout_mode = 2
-theme_override_font_sizes/font_size = 10
-text = "TOMATO"
+theme_override_fonts/font = ExtResource("1_ei8b7")
+theme_override_font_sizes/font_size = 15
+text = "$1"
+icon = ExtResource("2_iw66u")
 
-[node name="Button2" type="Button" parent="CanvasLayer/GridContainer"]
+[node name="Button2" type="Button" parent="CanvasLayer/BGColor/GridContainer"]
+texture_filter = 1
 custom_minimum_size = Vector2(61.68, 0)
 layout_mode = 2
-theme_override_font_sizes/font_size = 10
-text = "POTATO"
+theme_override_fonts/font = ExtResource("1_ei8b7")
+theme_override_font_sizes/font_size = 15
+text = "$2"
+icon = ExtResource("3_argpm")
 
-[node name="Button3" type="Button" parent="CanvasLayer/GridContainer"]
+[node name="Button3" type="Button" parent="CanvasLayer/BGColor/GridContainer"]
+texture_filter = 1
 custom_minimum_size = Vector2(61.68, 0)
 layout_mode = 2
-theme_override_font_sizes/font_size = 10
-text = "WHEAT"
+theme_override_fonts/font = ExtResource("1_ei8b7")
+theme_override_font_sizes/font_size = 15
+text = "$3"
+icon = ExtResource("4_argpm")
 
-[node name="Button4" type="Button" parent="CanvasLayer/GridContainer"]
+[node name="Button4" type="Button" parent="CanvasLayer/BGColor/GridContainer"]
+texture_filter = 1
 custom_minimum_size = Vector2(61.68, 0)
 layout_mode = 2
-theme_override_font_sizes/font_size = 10
-text = "CABBAGE"
+theme_override_fonts/font = ExtResource("1_ei8b7")
+theme_override_font_sizes/font_size = 15
+text = "$4"
+icon = ExtResource("5_iw66u")

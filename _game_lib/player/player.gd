@@ -1,4 +1,4 @@
 extends Node2D
 
 func _ready() -> void:
-	%AnimatedSprite2D.play("walk");
+	%AnimatedSprite2D.play("idle");

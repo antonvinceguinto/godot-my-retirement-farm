@@ -6,10 +6,10 @@ signal seed_selected(crop_data: CROP_DATA);
 const CROP_DATA = preload("res://_game_lib/environment/crop_data.gd");
 const PLOT_MANAGER = preload("res://_game_lib/environment/plot_manager.gd");
 
-@onready var tomato_button: Button = $CanvasLayer/GridContainer/Button;
-@onready var potato_button: Button = $CanvasLayer/GridContainer/Button2;
-@onready var wheat_button: Button = $CanvasLayer/GridContainer/Button3;
-@onready var cabbage_button: Button = $CanvasLayer/GridContainer/Button4;
+@onready var tomato_button: Button = $CanvasLayer/BGColor/GridContainer/Button;
+@onready var potato_button: Button = $CanvasLayer/BGColor/GridContainer/Button2;
+@onready var wheat_button: Button = $CanvasLayer/BGColor/GridContainer/Button3;
+@onready var pumpkin_button: Button = $CanvasLayer/BGColor/GridContainer/Button4;
 
 var selected_crop = null;
 var plot_manager: PLOT_MANAGER;
@@ -24,7 +24,7 @@ func _ready() -> void:
 	_connect_button_signals();
 
 	# Find plot manager
-	plot_manager = get_tree().root.get_node("MainGame/Environment") as PLOT_MANAGER;
+	plot_manager = get_tree().root.get_node("MainGame/PlotManager") as PLOT_MANAGER;
 	if plot_manager:
 		seed_selected.connect(plot_manager._on_seed_selected);
 
@@ -36,10 +36,10 @@ func _initialize_button_mappings() -> void:
 	crop_button_map[CROP_DATA.CropType.TOMATO] = tomato_button;
 	crop_button_map[CROP_DATA.CropType.POTATO] = potato_button;
 	crop_button_map[CROP_DATA.CropType.WHEAT] = wheat_button;
-	crop_button_map[CROP_DATA.CropType.CABBAGE] = cabbage_button;
+	crop_button_map[CROP_DATA.CropType.PUMPKIN] = pumpkin_button;
 
 	# Create array of all buttons for batch operations
-	buttons_array = [tomato_button, potato_button, wheat_button, cabbage_button];
+	buttons_array = [tomato_button, potato_button, wheat_button, pumpkin_button];
 
 func _connect_button_signals() -> void:
 	# Connect all buttons to the same generic handler
@@ -49,8 +49,8 @@ func _connect_button_signals() -> void:
 		potato_button.pressed.connect(_on_crop_selected.bind(CROP_DATA.CropType.POTATO));
 	if wheat_button:
 		wheat_button.pressed.connect(_on_crop_selected.bind(CROP_DATA.CropType.WHEAT));
-	if cabbage_button:
-		cabbage_button.pressed.connect(_on_crop_selected.bind(CROP_DATA.CropType.CABBAGE));
+	if pumpkin_button:
+		pumpkin_button.pressed.connect(_on_crop_selected.bind(CROP_DATA.CropType.PUMPKIN));
 
 func _on_crop_selected(crop_type: CROP_DATA.CropType) -> void:
 	# Toggle selection logic
