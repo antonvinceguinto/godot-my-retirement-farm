@@ -1818,6 +1818,7 @@ color = Color(0, 0.3779552, 0, 1)
 script = ExtResource("2_6bm6p")
 
 [node name="PlotManager" parent="." instance=ExtResource("2_yx7mw")]
+unique_name_in_owner = true
 position = Vector2(47, 181)
 
 [node name="Soil" parent="PlotManager" instance=ExtResource("4_dugkq")]

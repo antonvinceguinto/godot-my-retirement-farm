@@ -91,12 +91,12 @@ func _on_plant_harvested(plot: Plot, crop_type: CROP_DATA.CropType) -> void:
 	# Here you can add inventory management or other harvest effects
 
 
-func get_all_plots_status() -> Array[Dictionary]:
-	var status_list: Array[Dictionary] = [];
+func get_all_unwatered_plots() -> Array[Plot]:
+	var status_list: Array[Plot] = [];
 	
 	for plot: Plot in plots:
 		var plot_status: Dictionary = plot.get_plant_info();
-		plot_status["plot_id"] = plot.plot_id;
-		status_list.append(plot_status);
+		if plot_status["stage"] == CROP_DATA.GrowthStage.UNWATERED:
+			status_list.append(plot);
 	
 	return status_list;

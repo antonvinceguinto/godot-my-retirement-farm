@@ -4,7 +4,7 @@ extends Resource
 const CROP_DATA = preload("res://_game_lib/environment/crop_data.gd")
 
 @export var crop_data: CROP_DATA;
-@export var current_stage: CROP_DATA.GrowthStage = CROP_DATA.GrowthStage.STAGE_1;
+@export var current_stage: CROP_DATA.GrowthStage;
 @export var stage_timer: float = 0.0;
 @export var planted_time: float = 0.0;
 
@@ -13,7 +13,7 @@ signal plant_matured();
 
 func _init(_crop_data: CROP_DATA) -> void:
 	crop_data = _crop_data;
-	current_stage = CROP_DATA.GrowthStage.STAGE_1;
+	current_stage = CROP_DATA.GrowthStage.UNWATERED;
 	stage_timer = 0.0;
 	planted_time = Time.get_time_dict_from_system()["second"] as float;
 
@@ -41,5 +41,13 @@ func advance_stage() -> void:
 func get_current_frame() -> int:
 	return crop_data.stage_frames[current_stage];
 
+func is_unwatered() -> bool:
+	return current_stage == CROP_DATA.GrowthStage.UNWATERED;
+
 func is_mature() -> bool:
 	return current_stage == CROP_DATA.GrowthStage.STAGE_6;
+
+func water() -> void:
+	current_stage = CROP_DATA.GrowthStage.STAGE_1;
+	stage_timer = 0.0;
+	planted_time = Time.get_time_dict_from_system()["second"] as float;

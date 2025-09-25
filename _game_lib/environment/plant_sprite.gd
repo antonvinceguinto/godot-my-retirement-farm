@@ -50,7 +50,7 @@ func advance_stage() -> void:
 func update_visual() -> void:
 	if not crop_data:
 		return;
-		
+	
 	frame = crop_data.stage_frames[current_stage];
 
 func get_current_stage() -> CROP_DATA.GrowthStage:

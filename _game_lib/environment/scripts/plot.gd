@@ -12,6 +12,7 @@ const PLANT_INSTANCE = preload("res://_game_lib/environment/plant_instance.gd");
 var current_plant: PLANT_INSTANCE = null;
 var is_planted: bool = false;
 var is_selected: bool = false;
+var coordinates: Vector2;
 
 signal plot_clicked(plot: Plot);
 signal plant_harvested(plot: Plot, crop_type: CROP_DATA.CropType);
@@ -19,6 +20,8 @@ signal plant_harvested(plot: Plot, crop_type: CROP_DATA.CropType);
 func _ready() -> void:
 	# Add input detection
 	set_process_input(true);
+	
+	coordinates = global_position;
 	
 	# Animation selection
 	$AnimatedSelection.visible = false;
@@ -56,10 +59,6 @@ func plant_seed(crop_data: CROP_DATA) -> bool:
 	current_plant = PLANT_INSTANCE.new(crop_data);
 	is_planted = true;
 
-	# Show the watered ground
-	$GroundSprite.visible = true;
-
-	
 	# Initialize visual representation
 	if plant_sprite:
 		plant_sprite.initialize_plant(crop_data.crop_type);
@@ -72,7 +71,8 @@ func plant_seed(crop_data: CROP_DATA) -> bool:
 
 func _process(delta: float) -> void:
 	if current_plant and is_planted:
-		current_plant.update_growth(delta);
+		if not current_plant.is_unwatered():
+			current_plant.update_growth(delta);
 		
 		$AnimatedSelection.visible = false;
 
@@ -112,15 +112,23 @@ func set_selected(selected: bool) -> void:
 	# Animation
 	$AnimatedSelection.visible = selected;
 	$AnimatedSelection.play("active");
-	
+
+
+func water() -> void:
+	if not current_plant:
+		return;
+
+	# Show the watered ground
+	$GroundSprite.visible = true;
+	current_plant.water();
 
 func get_plant_info() -> Dictionary:
-	if not is_planted:
-		return {"status": "empty"};
-		
+	if not current_plant:
+		return {"stage": -1};
+
 	return {
-		"status": "planted",
 		"crop_name": current_plant.crop_data.crop_name,
 		"stage": current_plant.current_stage,
-		"is_mature": current_plant.is_mature()
+		"is_mature": current_plant.is_mature(),
+		"coordinates": coordinates
 	};
