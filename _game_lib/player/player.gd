@@ -1,63 +1,114 @@
+class_name Player
 extends CharacterBody2D
 
-@onready var plot_manager = %PlotManager;
+# Constants
+const MOVE_SPEED: float = 50.0
+const ARRIVAL_THRESHOLD: float = 2.0
+const CHECK_INTERVAL: float = 2.0
+const ARRIVAL_THRESHOLD_SQUARED: float = ARRIVAL_THRESHOLD * ARRIVAL_THRESHOLD
+
+# Player states
+enum PlayerState {
+	IDLE,
+	WALKING,
+	WATERING
+}
+
+# Cached node references
+@onready var plot_manager: Node = %PlotManager
+@onready var animated_sprite: AnimatedSprite2D = %AnimatedSprite2D
+@onready var check_timer: Timer = Timer.new()
 
 # Movement properties
 var target_position: Vector2 = Vector2.ZERO
-var move_speed: float = 50.0
-var is_moving: bool = false
-var arrival_threshold: float = 2.0  # Distance threshold to consider "arrived"
+var current_state: PlayerState = PlayerState.IDLE
+var current_plot: Plot = null
+var current_animation: String = ""
+
+# Signals
+signal arrived_at_destination
 
 func _ready() -> void:
-	%AnimatedSprite2D.play("idle");
+	_setup_timer();
+	_change_animation("idle");
 
-	# Set up the timer to check for unwatered seeds every 5 seconds
-	var timer = Timer.new();
-	timer.wait_time = 2.0;
-	timer.autostart = true;
-	timer.timeout.connect(check_for_unwatered_seed);
-	add_child(timer);
+func _setup_timer() -> void:
+	check_timer.wait_time = CHECK_INTERVAL;
+	check_timer.autostart = true;
+	check_timer.timeout.connect(_on_check_timer_timeout);
+	add_child(check_timer);
 
 func _physics_process(_delta: float) -> void:
-	if is_moving and target_position != Vector2.ZERO:
-		# Calculate direction to target
-		var direction: Vector2 = (target_position - global_position).normalized();
+	if current_state == PlayerState.WALKING:
+		_handle_movement();
 
-		# Set velocity
-		velocity = direction * move_speed;
-
-		# Move and slide
-		move_and_slide();
-
-		# Play walking animation
-		%AnimatedSprite2D.play("walk");
-
-		# Check if we've arrived at the target
-		if global_position.distance_to(target_position) < arrival_threshold:
-			velocity = Vector2.ZERO;
-			is_moving = false;
-
-
-func check_for_unwatered_seed() -> void:
-	var unwatered_plots: Array[Plot] = %PlotManager.get_all_unwatered_plots();
-	if unwatered_plots.size() > 0:
-		await walk_to_plot(unwatered_plots[0]);
+func _handle_movement() -> void:
+	# Calculate direction to target using cached squared distance for performance
+	var distance_squared: float = global_position.distance_squared_to(target_position);
+	
+	# Check arrival first (most common case when close)
+	if distance_squared < ARRIVAL_THRESHOLD_SQUARED:
+		_arrive_at_destination();
+		return;
+	
+	# Continue moving
+	var direction: Vector2 = (target_position - global_position).normalized();
+	velocity = direction * MOVE_SPEED;
+	move_and_slide();
+	
+	# Only change animation if needed
+	_change_animation("walk");
 
 
-func walk_to_plot(plot: Plot) -> void:
-	target_position = plot.coordinates;
-	is_moving = true;
-
-	# Wait until we've arrived at the target
-	while is_moving:
-		await get_tree().physics_frame;
+func _on_check_timer_timeout() -> void:
+	# Only check for plots when idle
+	if current_state != PlayerState.IDLE:
+		return;
 		
-	# Play watering animation
-	%AnimatedSprite2D.play("watering");
-	await %AnimatedSprite2D.animation_finished;
+	var unwatered_plots: Array[Plot] = plot_manager.get_all_unwatered_plots();
+	if unwatered_plots.size() > 0:
+		await _walk_to_plot(unwatered_plots[0]);
 
-	# Water the plot after arriving
-	plot.water();
+func _walk_to_plot(plot: Plot) -> void:
+	# Prevent overlapping operations
+	if current_state != PlayerState.IDLE:
+		return;
+	
+	current_plot = plot;
+	target_position = plot.coordinates;
+	current_state = PlayerState.WALKING;
+	
+	# Wait for arrival signal instead of inefficient while loop
+	await arrived_at_destination;
+	
+	# Perform watering sequence
+	await _perform_watering();
 
-	# Play idle animation
-	%AnimatedSprite2D.play("idle");
+func _arrive_at_destination() -> void:
+	velocity = Vector2.ZERO;
+	current_state = PlayerState.IDLE;
+	arrived_at_destination.emit();
+
+func _perform_watering() -> void:
+	current_state = PlayerState.WATERING;
+	_change_animation("watering");
+	
+	await animated_sprite.animation_finished;
+	
+	# Water the plot after animation completes
+	if current_plot:
+		current_plot.water();
+		current_plot = null;
+	
+	# Return to idle state
+	current_state = PlayerState.IDLE;
+	_change_animation("idle");
+	
+	# Recheck for new seeds isntantly
+	_on_check_timer_timeout();
+
+func _change_animation(animation_name: String) -> void:
+	# Only change animation if it's different (performance optimization)
+	if current_animation != animation_name:
+		current_animation = animation_name;
+		animated_sprite.play(animation_name);
