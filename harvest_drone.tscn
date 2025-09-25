@@ -1,0 +1,5 @@
+[gd_scene format=3 uid="uid://dx5cpqns4wfr5"]
+
+[node name="HarvestDrone" type="Node2D"]
+
+[node name="Sprite2D" type="Sprite2D" parent="."]

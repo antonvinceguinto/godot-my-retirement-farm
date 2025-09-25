@@ -61,16 +61,14 @@ func _on_seed_selected(crop_data: CROP_DATA) -> void:
 
 
 func _on_plot_clicked(plot: Plot) -> void:
-	print("Plot clicked: ", plot.plot_id);
-	
 	# Clear previous selection
 	if selected_plot:
 		selected_plot.set_selected(false);
-	
+
 	# Select new plot
 	selected_plot = plot;
 	plot.set_selected(true);
-	
+
 	# Try to plant the selected crop
 	if not plot.is_planted:
 		if !current_selected_crop:
@@ -80,8 +78,7 @@ func _on_plot_clicked(plot: Plot) -> void:
 		if success:
 			var crop_data: CROP_DATA = current_selected_crop;
 			print("Planted ", crop_data.crop_name, " in plot ", plot.plot_id);
-		else:
-			print("Failed to plant seed in plot ", plot.plot_id);
+
 	else:
 		var plant_info: Dictionary = plot.get_plant_info();
 		print("Plot ", plot.plot_id, " already has a ", plant_info.crop_name, " (stage: ", plant_info.stage, ")");
