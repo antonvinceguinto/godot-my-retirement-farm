@@ -13,7 +13,7 @@
 [ext_resource type="Texture2D" uid="uid://b8dahounluqhr" path="res://_game_lib/environment/graphics/ALL props seasons.png" id="5_krmtw"]
 [ext_resource type="Script" uid="uid://d07wtp1omvvt5" path="res://_game_lib/environment/scripts/bonfire.gd" id="5_mf81u"]
 [ext_resource type="Texture2D" uid="uid://d1ajwlftmeqpm" path="res://_game_lib/environment/graphics/player_chair..png" id="10_borgi"]
-[ext_resource type="PackedScene" uid="uid://n8v680ee1v8t" path="res://soil_plot_design.tscn" id="12_an1vu"]
+[ext_resource type="PackedScene" uid="uid://cseqtf2qnonyk" path="res://soil_plot_design.tscn" id="12_an1vu"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_f52ns"]
 texture = ExtResource("1_2pltu")
@@ -1831,24 +1831,21 @@ z_index = 1
 position = Vector2(8, 28)
 
 [node name="2_Design" parent="PlotManager" instance=ExtResource("12_an1vu")]
-position = Vector2(169, 38)
+y_sort_enabled = true
+position = Vector2(168, 38)
 
-[node name="2_soil_1" parent="PlotManager" instance=ExtResource("4_dugkq")]
+[node name="1_soil_1" parent="PlotManager/2_Design" instance=ExtResource("4_dugkq")]
 z_index = 1
-position = Vector2(178, 16)
+position = Vector2(8, -22)
 
-[node name="2_soil_2" parent="PlotManager" instance=ExtResource("4_dugkq")]
+[node name="1_soil_2" parent="PlotManager/2_Design" instance=ExtResource("4_dugkq")]
 z_index = 1
-position = Vector2(178, 41)
+position = Vector2(8, 3)
 
-[node name="2_soil_3" parent="PlotManager" instance=ExtResource("4_dugkq")]
+[node name="1_soil_3" parent="PlotManager/2_Design" instance=ExtResource("4_dugkq")]
 z_index = 1
-position = Vector2(178, 66)
-
-[node name="2_Design2" parent="PlotManager" instance=ExtResource("12_an1vu")]
-visible = false
-position = Vector2(9, 191)
+position = Vector2(8, 28)
 
 [node name="Player" parent="." instance=ExtResource("1_1oj5k")]
 z_index = 1
-position = Vector2(54.999996, 206.00002)
+position = Vector2(136, 163)

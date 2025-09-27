@@ -19,30 +19,28 @@ func _ready() -> void:
 
 func find_plots() -> void:
 	plots.clear();
-
-	# Find all nodes that contain Plot children (regardless of their name)
-	for child: Node in get_children():
-		if child is Node2D:
-			# Check if this SOIL NODE contains any Plot children
-			var has_plots: bool = false;
-			for soil_child: Node in child.get_children():
-				if soil_child is Plot:
-					has_plots = true;
-					break;
-
-			# If this node contains plots, collect all Plot nodes from it
-			if has_plots:
-				for soil_child: Node in child.get_children():
-					if soil_child is Plot:
-						plots.append(soil_child as Plot);
+	
+	# Recursively search for all Plot nodes in the scene tree
+	_search_for_plots(self);
 
 	if plots.is_empty():
-		push_warning("No plots found in child nodes under PlotManager");
+		push_warning("No plots found in scene tree under PlotManager");
 		return;
 
 	# Assign plot IDs in a single pass
 	for i: int in range(plots.size()):
 		plots[i].plot_id = i;
+
+# Recursive function to search for Plot nodes
+func _search_for_plots(node: Node) -> void:
+	# Check if current node is a Plot
+	if node is Plot:
+		plots.append(node as Plot);
+		return;
+	
+	# Recursively search all children
+	for child: Node in node.get_children():
+		_search_for_plots(child);
 
 
 func _on_seed_selected(crop_data: CROP_DATA) -> void:

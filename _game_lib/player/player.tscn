@@ -1,4 +1,4 @@
-[gd_scene load_steps=26 format=3 uid="uid://cdo0q7a8bqakc"]
+[gd_scene load_steps=32 format=3 uid="uid://cdo0q7a8bqakc"]
 
 [ext_resource type="Script" uid="uid://uiloue714u4c" path="res://_game_lib/player/player.gd" id="1_j8yhn"]
 [ext_resource type="Texture2D" uid="uid://1t8xvnv3fwe3" path="res://_game_lib/environment/graphics/Shadow.png" id="2_5ounq"]
@@ -45,6 +45,30 @@ region = Rect2(128, 0, 32, 32)
 [sub_resource type="AtlasTexture" id="AtlasTexture_6olaq"]
 atlas = ExtResource("4_5ounq")
 region = Rect2(160, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_njank"]
+atlas = ExtResource("4_5ounq")
+region = Rect2(0, 64, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_q0vww"]
+atlas = ExtResource("4_5ounq")
+region = Rect2(32, 64, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6luab"]
+atlas = ExtResource("4_5ounq")
+region = Rect2(64, 64, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xbwwr"]
+atlas = ExtResource("4_5ounq")
+region = Rect2(96, 64, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ptryk"]
+atlas = ExtResource("4_5ounq")
+region = Rect2(128, 64, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_23ekr"]
+atlas = ExtResource("4_5ounq")
+region = Rect2(160, 64, 32, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_rq7as"]
 atlas = ExtResource("5_7pnug")
@@ -117,7 +141,30 @@ animations = [{
 "texture": SubResource("AtlasTexture_6olaq")
 }],
 "loop": true,
-"name": &"walk",
+"name": &"walk_front",
+"speed": 4.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_njank")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_q0vww")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6luab")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xbwwr")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ptryk")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_23ekr")
+}],
+"loop": true,
+"name": &"walk_right",
 "speed": 4.0
 }, {
 "frames": [{
@@ -167,8 +214,8 @@ unique_name_in_owner = true
 texture_filter = 1
 position = Vector2(0, -6.6800003)
 sprite_frames = SubResource("SpriteFrames_3krxk")
-animation = &"walk"
-frame_progress = 0.79530555
+animation = &"idle"
+frame_progress = 0.021789474
 
 [node name="CollisionSort" type="CollisionShape2D" parent="."]
 position = Vector2(0.8, -1.0799997)

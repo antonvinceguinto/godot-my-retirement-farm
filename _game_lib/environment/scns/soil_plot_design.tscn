@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=4 uid="uid://cseqtf2qnonyk"]
+[gd_scene load_steps=16 format=4 uid="uid://n8v680ee1v8t"]
 
 [ext_resource type="Texture2D" uid="uid://b6d7hmewapst7" path="res://_game_lib/environment/graphics/Tilled Soil.png" id="1_d6fjr"]
 [ext_resource type="Texture2D" uid="uid://b8dahounluqhr" path="res://_game_lib/environment/graphics/ALL props seasons.png" id="2_n54h4"]
