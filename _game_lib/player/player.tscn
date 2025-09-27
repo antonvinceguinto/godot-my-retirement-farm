@@ -118,7 +118,7 @@ animations = [{
 }],
 "loop": true,
 "name": &"walk",
-"speed": 6.0
+"speed": 4.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -167,9 +167,8 @@ unique_name_in_owner = true
 texture_filter = 1
 position = Vector2(0, -6.6800003)
 sprite_frames = SubResource("SpriteFrames_3krxk")
-animation = &"watering"
-frame = 7
-frame_progress = 1.0
+animation = &"walk"
+frame_progress = 0.79530555
 
 [node name="CollisionSort" type="CollisionShape2D" parent="."]
 position = Vector2(0.8, -1.0799997)

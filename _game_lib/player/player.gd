@@ -2,7 +2,7 @@ class_name Player
 extends CharacterBody2D
 
 # Constants
-const MOVE_SPEED: float = 50.0
+const MOVE_SPEED: float = 15
 const ARRIVAL_THRESHOLD: float = 2.0
 const CHECK_INTERVAL: float = 2.0
 const ARRIVAL_THRESHOLD_SQUARED: float = ARRIVAL_THRESHOLD * ARRIVAL_THRESHOLD
@@ -15,15 +15,16 @@ enum PlayerState {
 }
 
 # Cached node references
-@onready var plot_manager: Node = %PlotManager
-@onready var animated_sprite: AnimatedSprite2D = %AnimatedSprite2D
-@onready var check_timer: Timer = Timer.new()
+@onready var plot_manager: Node2D = %PlotManager;
+@onready var animated_sprite: AnimatedSprite2D = %AnimatedSprite2D;
+@onready var check_timer: Timer = Timer.new();
+@onready var player_chair: Node2D = %PlayerChair;
 
 # Movement properties
-var target_position: Vector2 = Vector2.ZERO
-var current_state: PlayerState = PlayerState.IDLE
-var current_plot: Plot = null
-var current_animation: String = ""
+var target_position: Vector2 = Vector2.ZERO;
+var current_state: PlayerState = PlayerState.IDLE;
+var current_plot: Plot = null;
+var current_animation: String = "";
 
 # Signals
 signal arrived_at_destination
@@ -32,8 +33,6 @@ func _ready() -> void:
 	_setup_timer();
 	_change_animation("idle");
 
-	# Add to player group for easy reference by other systems
-	add_to_group("Player");
 
 func _setup_timer() -> void:
 	check_timer.wait_time = CHECK_INTERVAL;
@@ -74,6 +73,19 @@ func _on_check_timer_timeout() -> void:
 	var unwatered_plots: Array[Plot] = plot_manager.get_all_unwatered_plots();
 	if unwatered_plots.size() > 0:
 		await _walk_to_plot(unwatered_plots[0]);
+	
+	if current_state == PlayerState.IDLE:
+		_walk_to_chair();
+
+func _walk_to_chair() -> void:
+	target_position = player_chair.global_position;
+	current_state = PlayerState.WALKING;
+	await arrived_at_destination;
+	
+	# Return to IDLE state
+	current_state = PlayerState.IDLE;
+	_change_animation("idle");
+	
 
 func _walk_to_plot(plot: Plot) -> void:
 	# Prevent overlapping operations
@@ -90,10 +102,12 @@ func _walk_to_plot(plot: Plot) -> void:
 	# Perform watering sequence
 	await _perform_watering();
 
+
 func _arrive_at_destination() -> void:
 	velocity = Vector2.ZERO;
 	current_state = PlayerState.IDLE;
 	arrived_at_destination.emit();
+
 
 func _perform_watering() -> void:
 	current_state = PlayerState.WATERING;
