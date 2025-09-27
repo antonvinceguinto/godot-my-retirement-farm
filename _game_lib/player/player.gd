@@ -32,6 +32,9 @@ func _ready() -> void:
 	_setup_timer();
 	_change_animation("idle");
 
+	# Add to player group for easy reference by other systems
+	add_to_group("Player");
+
 func _setup_timer() -> void:
 	check_timer.wait_time = CHECK_INTERVAL;
 	check_timer.autostart = true;
@@ -42,9 +45,12 @@ func _physics_process(_delta: float) -> void:
 	if current_state == PlayerState.WALKING:
 		_handle_movement();
 
+
 func _handle_movement() -> void:
+	var final_target_pos = target_position + Vector2(0, -13);
+	
 	# Calculate direction to target using cached squared distance for performance
-	var distance_squared: float = global_position.distance_squared_to(target_position);
+	var distance_squared: float = global_position.distance_squared_to(final_target_pos);
 	
 	# Check arrival first (most common case when close)
 	if distance_squared < ARRIVAL_THRESHOLD_SQUARED:
@@ -52,7 +58,7 @@ func _handle_movement() -> void:
 		return;
 	
 	# Continue moving
-	var direction: Vector2 = (target_position - global_position).normalized();
+	var direction: Vector2 = (final_target_pos - global_position).normalized();
 	velocity = direction * MOVE_SPEED;
 	move_and_slide();
 	

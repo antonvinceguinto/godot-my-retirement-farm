@@ -1,9 +1,10 @@
-[gd_scene load_steps=8 format=3 uid="uid://tg5hpe27imcn"]
+[gd_scene load_steps=9 format=3 uid="uid://tg5hpe27imcn"]
 
 [ext_resource type="Script" uid="uid://b5fblmxsythel" path="res://_game_lib/environment/scripts/plot.gd" id="1_au4tu"]
 [ext_resource type="Texture2D" uid="uid://v8ul4npj7fhl" path="res://_game_lib/environment/graphics/tile_watered.png" id="2_sny14"]
 [ext_resource type="Script" uid="uid://djtyocbo8msei" path="res://_game_lib/environment/plant_sprite.gd" id="3_1gqli"]
 [ext_resource type="Texture2D" uid="uid://dt1le5e1w11kc" path="res://_game_lib/UI/graphics/Extras.png" id="3_sny14"]
+[ext_resource type="Texture2D" uid="uid://bjn804i0ihcyd" path="res://_game_lib/environment/seeds/tomato/tomato.png" id="4_srjbf"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_srjbf"]
 atlas = ExtResource("3_sny14")
@@ -44,5 +45,7 @@ frame_progress = 0.18410808
 [node name="PlantSprite" type="Sprite2D" parent="."]
 position = Vector2(0, -5.3333335)
 scale = Vector2(0.8, 0.75)
-hframes = 4
+texture = ExtResource("4_srjbf")
+hframes = 6
+frame = 5
 script = ExtResource("3_1gqli")

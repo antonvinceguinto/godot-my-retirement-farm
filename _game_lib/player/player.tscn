@@ -48,35 +48,35 @@ region = Rect2(160, 0, 32, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_rq7as"]
 atlas = ExtResource("5_7pnug")
-region = Rect2(0, 64, 32, 32)
+region = Rect2(0, 0, 32, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_twrfe"]
 atlas = ExtResource("5_7pnug")
-region = Rect2(32, 64, 32, 32)
+region = Rect2(32, 0, 32, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_8qiwi"]
 atlas = ExtResource("5_7pnug")
-region = Rect2(64, 64, 32, 32)
+region = Rect2(64, 0, 32, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_lckqj"]
 atlas = ExtResource("5_7pnug")
-region = Rect2(96, 64, 32, 32)
+region = Rect2(96, 0, 32, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_s0mit"]
 atlas = ExtResource("5_7pnug")
-region = Rect2(128, 64, 32, 32)
+region = Rect2(128, 0, 32, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_vmf6w"]
 atlas = ExtResource("5_7pnug")
-region = Rect2(160, 64, 32, 32)
+region = Rect2(160, 0, 32, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_m4fy1"]
 atlas = ExtResource("5_7pnug")
-region = Rect2(192, 64, 32, 32)
+region = Rect2(192, 0, 32, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_xvu1y"]
 atlas = ExtResource("5_7pnug")
-region = Rect2(224, 64, 32, 32)
+region = Rect2(224, 0, 32, 32)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_3krxk"]
 animations = [{
@@ -147,12 +147,14 @@ animations = [{
 }],
 "loop": false,
 "name": &"watering",
-"speed": 6.0
+"speed": 7.0
 }]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_5ounq"]
+radius = 3.9999998
 
-[node name="Player" type="CharacterBody2D"]
+[node name="Player" type="CharacterBody2D" groups=["Player"]]
+y_sort_enabled = true
 scale = Vector2(1.25, 1.25)
 script = ExtResource("1_j8yhn")
 
@@ -169,8 +171,8 @@ animation = &"watering"
 frame = 7
 frame_progress = 1.0
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-visible = false
+[node name="CollisionSort" type="CollisionShape2D" parent="."]
+position = Vector2(0, 8.8)
 shape = SubResource("CircleShape2D_5ounq")
 
 [connection signal="animation_finished" from="AnimatedSprite2D" to="." method="_on_animated_sprite_2d_animation_finished"]
