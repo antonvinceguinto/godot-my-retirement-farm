@@ -33,19 +33,19 @@ scale = Vector2(1.5, 1.5)
 script = ExtResource("1_au4tu")
 
 [node name="GroundSprite" type="Sprite2D" parent="."]
+position = Vector2(0, 2.666666)
 texture = ExtResource("2_sny14")
 
 [node name="AnimatedSelection" type="AnimatedSprite2D" parent="."]
-position = Vector2(0, -5.9604645e-08)
+position = Vector2(0, 2.666666)
 scale = Vector2(0.5, 0.5)
 sprite_frames = SubResource("SpriteFrames_xuk5j")
 animation = &"active"
 frame_progress = 0.18410808
 
 [node name="PlantSprite" type="Sprite2D" parent="."]
-position = Vector2(0, -5.3333335)
+position = Vector2(0, -2.666667)
 scale = Vector2(0.8, 0.75)
 texture = ExtResource("4_srjbf")
 hframes = 6
-frame = 5
 script = ExtResource("3_1gqli")

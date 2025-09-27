@@ -154,25 +154,25 @@ animations = [{
 radius = 3.9999998
 
 [node name="Player" type="CharacterBody2D" groups=["Player"]]
-y_sort_enabled = true
 scale = Vector2(1.25, 1.25)
 script = ExtResource("1_j8yhn")
 
 [node name="Shadow" type="Sprite2D" parent="."]
-position = Vector2(0, -3)
+position = Vector2(0, -9.679999)
 scale = Vector2(0.63000005, 0.63000005)
 texture = ExtResource("2_5ounq")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 unique_name_in_owner = true
 texture_filter = 1
+position = Vector2(0, -6.6800003)
 sprite_frames = SubResource("SpriteFrames_3krxk")
 animation = &"watering"
 frame = 7
 frame_progress = 1.0
 
 [node name="CollisionSort" type="CollisionShape2D" parent="."]
-position = Vector2(0, 8.8)
+position = Vector2(0.8, -1.0799997)
 shape = SubResource("CircleShape2D_5ounq")
 
 [connection signal="animation_finished" from="AnimatedSprite2D" to="." method="_on_animated_sprite_2d_animation_finished"]

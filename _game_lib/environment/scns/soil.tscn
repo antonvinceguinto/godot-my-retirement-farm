@@ -2288,6 +2288,7 @@ sources/4 = SubResource("TileSetAtlasSource_3ymbf")
 metadata/_edit_vertical_guides_ = [146.0]
 
 [node name="TileMapLayer" type="TileMapLayer" parent="."]
+visible = false
 
 [node name="BG" type="TileMapLayer" parent="TileMapLayer"]
 position = Vector2(8, -7)
@@ -2305,28 +2306,10 @@ tile_map_data = PackedByteArray("AAD9////AgANAAIAAAD9/wMAAgATAAYAAAD/////AgASAAY
 tile_set = SubResource("TileSet_c1li5")
 
 [node name="Plot2" parent="." instance=ExtResource("3_q8ou1")]
-position = Vector2(-32, -1)
+position = Vector2(-32, -8)
 
 [node name="Plot3" parent="." instance=ExtResource("3_q8ou1")]
-position = Vector2(-8, -1)
+position = Vector2(-8, -8)
 
 [node name="Plot4" parent="." instance=ExtResource("3_q8ou1")]
-position = Vector2(16.000002, -1)
-
-[node name="Plot5" parent="." instance=ExtResource("3_q8ou1")]
-position = Vector2(-32, 24)
-
-[node name="Plot6" parent="." instance=ExtResource("3_q8ou1")]
-position = Vector2(-8, 24)
-
-[node name="Plot7" parent="." instance=ExtResource("3_q8ou1")]
-position = Vector2(16.000002, 24)
-
-[node name="Plot8" parent="." instance=ExtResource("3_q8ou1")]
-position = Vector2(-32, 47)
-
-[node name="Plot9" parent="." instance=ExtResource("3_q8ou1")]
-position = Vector2(-8, 47)
-
-[node name="Plot10" parent="." instance=ExtResource("3_q8ou1")]
-position = Vector2(16.000002, 47)
+position = Vector2(16.000002, -8)
