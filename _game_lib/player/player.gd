@@ -1,9 +1,12 @@
 class_name Player
 extends CharacterBody2D
 
+# Import shared plot detection system
+const PlotDetection = preload("res://_game_lib/shared_scripts/plot_detection.gd");
+
 # Constants
 #const MOVE_SPEED: float = 15
-const MOVE_SPEED: float = 30
+const MOVE_SPEED: float = 25
 const ARRIVAL_THRESHOLD: float = 2.0
 const CHECK_INTERVAL: float = 3.0
 const ARRIVAL_THRESHOLD_SQUARED: float = ARRIVAL_THRESHOLD * ARRIVAL_THRESHOLD
@@ -20,6 +23,9 @@ enum PlayerState {
 @onready var animated_sprite: AnimatedSprite2D = %AnimatedSprite2D;
 @onready var player_chair: Node2D = %PlayerChair;
 
+# Entity identification for plot reservation system
+var entity_id: String = "player_main";
+
 # Timers
 @onready var check_timer: Timer = Timer.new();
 @onready var chair_timer: Timer = Timer.new();
@@ -34,6 +40,8 @@ var current_animation: String = "";
 signal arrived_at_destination
 
 func _ready() -> void:
+	# Initialize plot detection system with plot manager reference
+	PlotDetection.set_plot_manager(plot_manager);
 	_setup_timer();
 	_change_animation("idle");
 
@@ -93,9 +101,12 @@ func _on_check_timer_timeout() -> void:
 	if current_state != PlayerState.IDLE:
 		return;
 		
-	var unwatered_plots: Array[Plot] = plot_manager.get_all_unwatered_plots();
-	if unwatered_plots.size() > 0:
-		await _walk_to_plot(unwatered_plots[0]);
+	# Use shared plot detection to get closest available plot
+	var closest_plot: Plot = PlotDetection.get_closest_available_plot(global_position, entity_id);
+	if closest_plot:
+		# Reserve the plot before going to it
+		if PlotDetection.reserve_plot(closest_plot, entity_id):
+			await _walk_to_plot(closest_plot);
 
 
 func _on_chair_timer_timeout() -> void:
@@ -114,11 +125,13 @@ func _walk_to_chair() -> void:
 	# Return to IDLE state
 	current_state = PlayerState.IDLE;
 	_change_animation("idle");
-	
+
 
 func _walk_to_plot(plot: Plot) -> void:
 	# Prevent overlapping operations
 	if current_state != PlayerState.IDLE:
+		# Release reservation if we can't proceed
+		PlotDetection.release_plot(plot, entity_id);
 		return;
 	
 	current_plot = plot;
@@ -128,8 +141,17 @@ func _walk_to_plot(plot: Plot) -> void:
 	# Wait for arrival signal instead of inefficient while loop
 	await arrived_at_destination;
 	
-	# Perform watering sequence
-	await _perform_watering();
+	# Double-check we still have the right plot reserved
+	if current_plot and PlotDetection.is_plot_reserved_by(current_plot, entity_id):
+		# Perform watering sequence
+		await _perform_watering();
+	else:
+		# Something went wrong, release and reset
+		if current_plot:
+			PlotDetection.release_plot(current_plot, entity_id);
+		current_plot = null;
+		current_state = PlayerState.IDLE;
+		_change_animation("idle");
 
 
 func _arrive_at_destination() -> void:
@@ -148,13 +170,16 @@ func _perform_watering() -> void:
 	# Water the plot after animation completes
 	if current_plot:
 		current_plot.water();
+
+		# Release plot reservation after watering is complete
+		PlotDetection.release_plot(current_plot, entity_id);
 		current_plot = null;
 	
 	# Return to idle state
 	current_state = PlayerState.IDLE;
 	_change_animation("idle");
 	
-	# Recheck for new seeds isntantly
+	# Recheck for new seeds instantly
 	_on_check_timer_timeout();
 
 func _change_animation(animation_name: String) -> void:

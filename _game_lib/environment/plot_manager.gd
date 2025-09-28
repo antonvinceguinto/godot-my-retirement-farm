@@ -8,6 +8,8 @@ var selected_plot: Plot = null;
 var current_selected_crop: CROP_DATA = null;
 
 func _ready() -> void:
+	add_to_group("PlotManager");
+	
 	# Find all plot nodes
 	find_plots();
 	

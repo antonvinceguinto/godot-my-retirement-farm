@@ -13,8 +13,8 @@
 [ext_resource type="Texture2D" uid="uid://b8dahounluqhr" path="res://_game_lib/environment/graphics/ALL props seasons.png" id="5_krmtw"]
 [ext_resource type="Script" uid="uid://d07wtp1omvvt5" path="res://_game_lib/environment/scripts/bonfire.gd" id="5_mf81u"]
 [ext_resource type="Texture2D" uid="uid://d1ajwlftmeqpm" path="res://_game_lib/environment/graphics/player_chair..png" id="10_borgi"]
-[ext_resource type="PackedScene" uid="uid://cseqtf2qnonyk" path="res://soil_plot_design.tscn" id="12_an1vu"]
-[ext_resource type="PackedScene" uid="uid://dx5cpqns4wfr5" path="res://_game_lib/drones/water_drone.tscn" id="15_qpaub"]
+[ext_resource type="PackedScene" uid="uid://n8v680ee1v8t" path="res://soil_plot_design.tscn" id="12_an1vu"]
+[ext_resource type="PackedScene" uid="uid://dx5cpqns4wfr5" path="res://_game_lib/drones/WaterDrone/water_drone.tscn" id="15_qpaub"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_f52ns"]
 texture = ExtResource("1_2pltu")
@@ -1832,6 +1832,7 @@ z_index = 1
 position = Vector2(8, 70)
 
 [node name="2_Design" parent="PlotManager" instance=ExtResource("12_an1vu")]
+visible = false
 y_sort_enabled = true
 position = Vector2(168, -4)
 
@@ -1849,7 +1850,7 @@ position = Vector2(8, 70)
 
 [node name="Player" parent="." instance=ExtResource("1_1oj5k")]
 z_index = 1
-position = Vector2(135, 186)
+position = Vector2(136, 161)
 
 [node name="WaterDrone" parent="." instance=ExtResource("15_qpaub")]
-position = Vector2(134, 225)
+position = Vector2(156, 226)
