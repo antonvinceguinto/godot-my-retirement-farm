@@ -1,4 +1,4 @@
-[gd_scene load_steps=29 format=4 uid="uid://bmjyd0h33u0rw"]
+[gd_scene load_steps=30 format=4 uid="uid://bmjyd0h33u0rw"]
 
 [ext_resource type="PackedScene" uid="uid://cdo0q7a8bqakc" path="res://_game_lib/player/player.tscn" id="1_1oj5k"]
 [ext_resource type="Texture2D" uid="uid://bdqruopno2fn6" path="res://_game_lib/environment/graphics/Tileset Grass Spring.png" id="1_2pltu"]
@@ -14,6 +14,7 @@
 [ext_resource type="Script" uid="uid://d07wtp1omvvt5" path="res://_game_lib/environment/scripts/bonfire.gd" id="5_mf81u"]
 [ext_resource type="Texture2D" uid="uid://d1ajwlftmeqpm" path="res://_game_lib/environment/graphics/player_chair..png" id="10_borgi"]
 [ext_resource type="PackedScene" uid="uid://cseqtf2qnonyk" path="res://soil_plot_design.tscn" id="12_an1vu"]
+[ext_resource type="PackedScene" uid="uid://dx5cpqns4wfr5" path="res://_game_lib/drones/water_drone.tscn" id="15_qpaub"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_f52ns"]
 texture = ExtResource("1_2pltu")
@@ -1816,36 +1817,39 @@ position = Vector2(47, 191)
 
 [node name="1_Design" parent="PlotManager" instance=ExtResource("12_an1vu")]
 y_sort_enabled = true
-position = Vector2(9, 38)
+position = Vector2(9, -4)
 
 [node name="1_soil_1" parent="PlotManager/1_Design" instance=ExtResource("4_dugkq")]
 z_index = 1
-position = Vector2(8, -22)
+position = Vector2(8, 20)
 
 [node name="1_soil_2" parent="PlotManager/1_Design" instance=ExtResource("4_dugkq")]
 z_index = 1
-position = Vector2(8, 3)
+position = Vector2(8, 45)
 
 [node name="1_soil_3" parent="PlotManager/1_Design" instance=ExtResource("4_dugkq")]
 z_index = 1
-position = Vector2(8, 28)
+position = Vector2(8, 70)
 
 [node name="2_Design" parent="PlotManager" instance=ExtResource("12_an1vu")]
 y_sort_enabled = true
-position = Vector2(168, 38)
+position = Vector2(168, -4)
 
 [node name="1_soil_1" parent="PlotManager/2_Design" instance=ExtResource("4_dugkq")]
 z_index = 1
-position = Vector2(8, -22)
+position = Vector2(8, 20)
 
 [node name="1_soil_2" parent="PlotManager/2_Design" instance=ExtResource("4_dugkq")]
 z_index = 1
-position = Vector2(8, 3)
+position = Vector2(8, 45)
 
 [node name="1_soil_3" parent="PlotManager/2_Design" instance=ExtResource("4_dugkq")]
 z_index = 1
-position = Vector2(8, 28)
+position = Vector2(8, 70)
 
 [node name="Player" parent="." instance=ExtResource("1_1oj5k")]
 z_index = 1
-position = Vector2(136, 163)
+position = Vector2(135, 186)
+
+[node name="WaterDrone" parent="." instance=ExtResource("15_qpaub")]
+position = Vector2(134, 225)

@@ -57,7 +57,7 @@ func _physics_process(_delta: float) -> void:
 
 
 func _handle_movement() -> void:
-	var final_target_pos = target_position + Vector2(0, 2);
+	var final_target_pos = target_position;
 	
 	# Calculate direction to target using cached squared distance for performance
 	var distance_squared: float = global_position.distance_squared_to(final_target_pos);
@@ -107,7 +107,7 @@ func _on_chair_timer_timeout() -> void:
 		_walk_to_chair();
 
 func _walk_to_chair() -> void:
-	target_position = player_chair.global_position;
+	target_position = player_chair.global_position - Vector2(0, -1);
 	current_state = PlayerState.WALKING;
 	await arrived_at_destination;
 	
@@ -122,7 +122,7 @@ func _walk_to_plot(plot: Plot) -> void:
 		return;
 	
 	current_plot = plot;
-	target_position = plot.coordinates;
+	target_position = plot.coordinates + Vector2(0, -1);
 	current_state = PlayerState.WALKING;
 	
 	# Wait for arrival signal instead of inefficient while loop

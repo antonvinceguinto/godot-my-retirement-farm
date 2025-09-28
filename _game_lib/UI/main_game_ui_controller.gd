@@ -6,10 +6,10 @@ signal seed_selected(crop_data: CROP_DATA);
 const CROP_DATA = preload("res://_game_lib/environment/crop_data.gd");
 const PLOT_MANAGER = preload("res://_game_lib/environment/plot_manager.gd");
 
-@onready var tomato_button: Button = $CanvasLayer/BGColor/GridContainer/Button;
-@onready var potato_button: Button = $CanvasLayer/BGColor/GridContainer/Button2;
-@onready var wheat_button: Button = $CanvasLayer/BGColor/GridContainer/Button3;
-@onready var pumpkin_button: Button = $CanvasLayer/BGColor/GridContainer/Button4;
+@onready var tomato_button: Button = $CanvasLayer/Control/BGColor/GridContainer/Button;
+@onready var potato_button: Button = $CanvasLayer/Control/BGColor/GridContainer/Button2;
+@onready var wheat_button: Button = $CanvasLayer/Control/BGColor/GridContainer/Button3;
+@onready var pumpkin_button: Button = $CanvasLayer/Control/BGColor/GridContainer/Button4;
 
 var selected_crop = null;
 var plot_manager: PLOT_MANAGER;

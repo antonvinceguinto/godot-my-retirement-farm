@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bidob3wvwl6ed"
-path="res://.godot/imported/UI_Extras.png-825b7570e202f895a0cc1b338f4d1aa6.ctex"
+uid="uid://tgepjgrl170w"
+path="res://.godot/imported/CoinContainer.png-d5101e64774a321ff16c07d9f9b04b57.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://_game_lib/UI/graphics/UI_Extras.png"
-dest_files=["res://.godot/imported/UI_Extras.png-825b7570e202f895a0cc1b338f4d1aa6.ctex"]
+source_file="res://_game_lib/UI/graphics/CoinContainer.png"
+dest_files=["res://.godot/imported/CoinContainer.png-d5101e64774a321ff16c07d9f9b04b57.ctex"]
 
 [params]
 
