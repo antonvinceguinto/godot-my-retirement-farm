@@ -33,6 +33,7 @@ scale = Vector2(1.5, 1.5)
 script = ExtResource("1_au4tu")
 
 [node name="GroundSprite" type="Sprite2D" parent="."]
+z_index = -1
 position = Vector2(0, 1.9999986)
 texture = ExtResource("2_sny14")
 

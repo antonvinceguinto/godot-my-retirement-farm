@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dfkm0jkixtqtb"
-path="res://.godot/imported/Summer Crops.png-6cc0f2ceb91af1a8c7ec9accd70b35db.ctex"
+uid="uid://cxbauk5k213m3"
+path="res://.godot/imported/EggplantItem.png-1cf3df8f47ff8d8e7cbb53cdd955d45a.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://_game_lib/environment/seeds/extras/Summer Crops.png"
-dest_files=["res://.godot/imported/Summer Crops.png-6cc0f2ceb91af1a8c7ec9accd70b35db.ctex"]
+source_file="res://_game_lib/environment/seeds/Eggplant/EggplantItem.png"
+dest_files=["res://.godot/imported/EggplantItem.png-1cf3df8f47ff8d8e7cbb53cdd955d45a.ctex"]
 
 [params]
 

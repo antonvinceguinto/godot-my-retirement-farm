@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://fyqb1qfs66h5"
-path="res://.godot/imported/Fall Crops.png-9e10d847474bfe518363e3c1f79503ab.ctex"
+uid="uid://bs8sslfu4uh5w"
+path="res://.godot/imported/PanelFrame.png-88c2cf2cd3fe0decf36b3417f4b7fb64.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://_game_lib/environment/seeds/extras/Fall Crops.png"
-dest_files=["res://.godot/imported/Fall Crops.png-9e10d847474bfe518363e3c1f79503ab.ctex"]
+source_file="res://_game_lib/UI/graphics/PanelFrame.png"
+dest_files=["res://.godot/imported/PanelFrame.png-88c2cf2cd3fe0decf36b3417f4b7fb64.ctex"]
 
 [params]
 

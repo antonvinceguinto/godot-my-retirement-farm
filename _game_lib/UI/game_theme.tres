@@ -1,0 +1,9 @@
+[gd_resource type="Theme" load_steps=2 format=3 uid="uid://b0y7g5xjy7rn7"]
+
+[ext_resource type="FontFile" uid="uid://cg6bcxdg1ar2n" path="res://_game_lib/UI/CodersCrux.ttf" id="1_hemja"]
+
+[resource]
+Button/font_sizes/font_size = 18
+Button/fonts/font = ExtResource("1_hemja")
+Label/font_sizes/font_size = 19
+Label/fonts/font = ExtResource("1_hemja")

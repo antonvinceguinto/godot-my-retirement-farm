@@ -1,10 +1,7 @@
-[gd_scene load_steps=7 format=3 uid="uid://cq63k3q2vrjw7"]
+[gd_scene load_steps=4 format=3 uid="uid://cq63k3q2vrjw7"]
 
-[ext_resource type="FontFile" uid="uid://cg6bcxdg1ar2n" path="res://_game_lib/UI/CodersCrux.ttf" id="1_ei8b7"]
-[ext_resource type="Texture2D" uid="uid://cdv323cqfx4gi" path="res://_game_lib/environment/seeds/tomato/TomatoItem.png" id="2_iw66u"]
-[ext_resource type="Texture2D" uid="uid://dqe5p8wi8yrcg" path="res://_game_lib/environment/seeds/potato/PotatoItem.png" id="3_argpm"]
-[ext_resource type="Texture2D" uid="uid://kr4jiwuv665i" path="res://_game_lib/environment/seeds/wheat/WheatItem.png" id="4_argpm"]
-[ext_resource type="Texture2D" uid="uid://mfmfp8u6esow" path="res://_game_lib/environment/seeds/pumpkin/PumpkinItem.png" id="5_iw66u"]
+[ext_resource type="Script" uid="uid://bni0g5a2im54g" path="res://_game_lib/UI/main_game_ui_controller.gd" id="1_nbcox"]
+[ext_resource type="Theme" uid="uid://b0y7g5xjy7rn7" path="res://_game_lib/UI/game_theme.tres" id="2_ei8b7"]
 [ext_resource type="Texture2D" uid="uid://tgepjgrl170w" path="res://_game_lib/UI/graphics/CoinContainer.png" id="6_argpm"]
 
 [node name="MainGameUI" type="Control"]
@@ -15,6 +12,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 1
+script = ExtResource("1_nbcox")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
@@ -28,83 +26,45 @@ offset_top = -141.0
 grow_horizontal = 2
 grow_vertical = 0
 
-[node name="BGColor" type="ColorRect" parent="CanvasLayer/Control"]
+[node name="PanelContainer" type="PanelContainer" parent="CanvasLayer/Control"]
 layout_mode = 1
-anchors_preset = 12
-anchor_top = 1.0
+anchors_preset = -1
+anchor_top = -0.128
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_top = -116.0
-grow_horizontal = 2
-grow_vertical = 0
-color = Color(0.3403393, 0.34033933, 0.3403393, 1)
-
-[node name="GridContainer" type="GridContainer" parent="CanvasLayer/Control/BGColor"]
-layout_direction = 2
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
+offset_top = 0.048000336
 grow_horizontal = 2
 grow_vertical = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/Control/PanelContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 16
+theme_override_constants/margin_right = 16
+
+[node name="GridContainer" type="GridContainer" parent="CanvasLayer/Control/PanelContainer/MarginContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 117.365)
+layout_direction = 2
+layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 8
 theme_override_constants/h_separation = 4
 columns = 4
 
-[node name="Button" type="Button" parent="CanvasLayer/Control/BGColor/GridContainer"]
-texture_filter = 1
-custom_minimum_size = Vector2(61.68, 31.675)
-layout_mode = 2
-theme_override_fonts/font = ExtResource("1_ei8b7")
-theme_override_font_sizes/font_size = 15
-text = "$1"
-icon = ExtResource("2_iw66u")
-
-[node name="Button2" type="Button" parent="CanvasLayer/Control/BGColor/GridContainer"]
-texture_filter = 1
-custom_minimum_size = Vector2(61.68, 0)
-layout_mode = 2
-theme_override_fonts/font = ExtResource("1_ei8b7")
-theme_override_font_sizes/font_size = 15
-text = "$2"
-icon = ExtResource("3_argpm")
-
-[node name="Button3" type="Button" parent="CanvasLayer/Control/BGColor/GridContainer"]
-texture_filter = 1
-custom_minimum_size = Vector2(61.68, 0)
-layout_mode = 2
-theme_override_fonts/font = ExtResource("1_ei8b7")
-theme_override_font_sizes/font_size = 15
-text = "$3"
-icon = ExtResource("4_argpm")
-
-[node name="Button4" type="Button" parent="CanvasLayer/Control/BGColor/GridContainer"]
-texture_filter = 1
-custom_minimum_size = Vector2(61.68, 0)
-layout_mode = 2
-theme_override_fonts/font = ExtResource("1_ei8b7")
-theme_override_font_sizes/font_size = 15
-text = "$4"
-icon = ExtResource("5_iw66u")
-
 [node name="CoinContainer" type="Control" parent="CanvasLayer/Control"]
 layout_mode = 1
-anchors_preset = 10
-anchor_right = 1.0
-offset_top = 3.0
-offset_bottom = 23.0
-grow_horizontal = 2
+anchors_preset = 0
+offset_left = 7.0
+offset_top = -7.0
+offset_right = 76.0
+offset_bottom = 11.0
 
 [node name="TextureRect" type="TextureRect" parent="CanvasLayer/Control/CoinContainer"]
 layout_mode = 1
-anchors_preset = 4
-anchor_top = 0.5
-anchor_bottom = 0.5
-offset_left = 3.0
-offset_top = -12.0
-offset_right = 77.0
-offset_bottom = 8.0
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
 grow_vertical = 2
 texture = ExtResource("6_argpm")
 stretch_mode = 5
@@ -118,13 +78,12 @@ anchor_right = 0.5
 anchor_bottom = 0.5
 offset_left = -17.0
 offset_top = -4.0
-offset_right = 35.0
+offset_right = 41.0
 offset_bottom = 8.0
 grow_horizontal = 2
 grow_vertical = 2
+theme = ExtResource("2_ei8b7")
 theme_override_colors/font_color = Color(0.2901961, 0.12941177, 0.13725491, 1)
-theme_override_fonts/font = ExtResource("1_ei8b7")
-theme_override_font_sizes/font_size = 19
 text = "9999"
 vertical_alignment = 1
 text_overrun_behavior = 1

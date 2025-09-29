@@ -5,7 +5,8 @@ enum CropType {
 	TOMATO,
 	POTATO,
 	WHEAT,
-	PUMPKIN
+	PUMPKIN,
+	EGGPLANT,
 }
 
 enum GrowthStage {
@@ -33,30 +34,37 @@ static func get_crop_data(type: CropType) -> CropData:
 	match type:
 		CropType.TOMATO:
 			data.crop_name = "Tomato";
-			data.stage_durations = [2.0, 4.0, 4.0, 5.0, 5.0, 0.0]; # 6 stages: 5 growth + 1 mature
+			data.stage_durations = [2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 0.0]; # 6 stages: 5 growth + 1 mature
 			data.stage_frames = [0, 0, 1, 2, 3, 4, 5]; # 6 frames for 6 stages
 			data.image_path = "res://_game_lib/environment/seeds/tomato/tomato.png";
 			data.frames = 6;
 
 		CropType.POTATO:
 			data.crop_name = "Potato";
-			data.stage_durations = [3.0, 5.0, 7.0, 0.0, 0.0, 0.0]; # 4 stages: 3 growth + 3 mature (reuse mature frame)
+			data.stage_durations = [3.0, 5.0, 7.0, 0.0, 0.0, 0.0, 0.0]; # 4 stages: 3 growth + 3 mature (reuse mature frame)
 			data.stage_frames = [0, 0, 1, 2, 3, 3, 3]; # Repeat mature frame for unused stages
 			data.image_path = "res://_game_lib/environment/seeds/potato/potato.png";
 			data.frames = 4;
 
 		CropType.WHEAT:
 			data.crop_name = "Wheat";
-			data.stage_durations = [2.5, 4.5, 5.5, 7.5, 0.0, 0.0]; # 4 stages: 3 growth + 3 mature
+			data.stage_durations = [2.5, 4.5, 5.5, 7.5, 0.0, 0.0, 0.0]; # 4 stages: 3 growth + 3 mature
 			data.stage_frames = [0, 0, 1, 2, 3, 3, 3]; # Repeat mature frame for unused stages
 			data.image_path = "res://_game_lib/environment/seeds/wheat/wheat.png";
 			data.frames = 4;
 
 		CropType.PUMPKIN:
 			data.crop_name = "Pumpkin";
-			data.stage_durations = [4.0, 6.0, 8.0, 10.0, 0.0, 0.0]; # 4 stages: 3 growth + 3 mature
+			data.stage_durations = [4.0, 6.0, 8.0, 10.0, 0.0, 0.0, 0.0]; # 4 stages: 3 growth + 3 mature
 			data.stage_frames = [0, 0, 1, 2, 3, 4, 4]; # Repeat mature frame for unused stages
 			data.image_path = "res://_game_lib/environment/seeds/pumpkin/pumpkin.png";
 			data.frames = 5;
+
+		CropType.EGGPLANT:
+			data.crop_name = "Eggplant";
+			data.stage_durations = [3.0, 3.0, 3.0, 3.0, 3.0, 3.0, 0.0]; # 4 stages: 3 growth + 3 mature
+			data.stage_frames = [0, 0, 1, 2, 3, 4, 5]; # Repeat mature frame for unused stages
+			data.image_path = "res://_game_lib/environment/seeds/eggplant/eggplant.png";
+			data.frames = 6;
 			
 	return data;

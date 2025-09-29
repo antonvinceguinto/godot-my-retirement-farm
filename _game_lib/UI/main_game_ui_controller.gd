@@ -6,22 +6,22 @@ signal seed_selected(crop_data: CROP_DATA);
 const CROP_DATA = preload("res://_game_lib/environment/crop_data.gd");
 const PLOT_MANAGER = preload("res://_game_lib/environment/plot_manager.gd");
 
-@onready var tomato_button: Button = $CanvasLayer/Control/BGColor/GridContainer/Button;
-@onready var potato_button: Button = $CanvasLayer/Control/BGColor/GridContainer/Button2;
-@onready var wheat_button: Button = $CanvasLayer/Control/BGColor/GridContainer/Button3;
-@onready var pumpkin_button: Button = $CanvasLayer/Control/BGColor/GridContainer/Button4;
+# UI References
+@onready var grid_container: GridContainer = %GridContainer;
 
+# Dynamic button management
 var selected_crop = null;
 var plot_manager: PLOT_MANAGER;
 var crop_button_map: Dictionary = {};
 var buttons_array: Array[Button] = [];
+var crop_icon_map: Dictionary = {};
 
 func _ready() -> void:
-	# Initialize button mappings
-	_initialize_button_mappings();
+	# Initialize crop icon mapping
+	_initialize_crop_icons();
 
-	# Connect button signals using generic handler
-	_connect_button_signals();
+	# Create buttons dynamically
+	_create_crop_buttons();
 
 	# Find plot manager
 	plot_manager = get_tree().root.get_node("MainGame/PlotManager") as PLOT_MANAGER;
@@ -31,26 +31,58 @@ func _ready() -> void:
 	# Set initial selection
 	update_button_selection();
 
-func _initialize_button_mappings() -> void:
-	# Create mapping between crop types and buttons
-	crop_button_map[CROP_DATA.CropType.TOMATO] = tomato_button;
-	crop_button_map[CROP_DATA.CropType.POTATO] = potato_button;
-	crop_button_map[CROP_DATA.CropType.WHEAT] = wheat_button;
-	crop_button_map[CROP_DATA.CropType.PUMPKIN] = pumpkin_button;
+func _initialize_crop_icons() -> void:
+	# Map crop types to their icon resources
+	crop_icon_map[CROP_DATA.CropType.TOMATO] = preload("res://_game_lib/environment/seeds/tomato/TomatoItem.png");
+	crop_icon_map[CROP_DATA.CropType.POTATO] = preload("res://_game_lib/environment/seeds/potato/PotatoItem.png");
+	crop_icon_map[CROP_DATA.CropType.WHEAT] = preload("res://_game_lib/environment/seeds/wheat/WheatItem.png");
+	crop_icon_map[CROP_DATA.CropType.PUMPKIN] = preload("res://_game_lib/environment/seeds/pumpkin/PumpkinItem.png");
+	crop_icon_map[CROP_DATA.CropType.EGGPLANT] = preload("res://_game_lib/environment/seeds/Eggplant/EggplantItem.png");
 
-	# Create array of all buttons for batch operations
-	buttons_array = [tomato_button, potato_button, wheat_button, pumpkin_button];
+func _create_crop_buttons() -> void:
+	# Clear existing buttons if any
+	_clear_existing_buttons();
 
-func _connect_button_signals() -> void:
-	# Connect all buttons to the same generic handler
-	if tomato_button:
-		tomato_button.pressed.connect(_on_crop_selected.bind(CROP_DATA.CropType.TOMATO));
-	if potato_button:
-		potato_button.pressed.connect(_on_crop_selected.bind(CROP_DATA.CropType.POTATO));
-	if wheat_button:
-		wheat_button.pressed.connect(_on_crop_selected.bind(CROP_DATA.CropType.WHEAT));
-	if pumpkin_button:
-		pumpkin_button.pressed.connect(_on_crop_selected.bind(CROP_DATA.CropType.PUMPKIN));
+	# Create buttons for each available crop type
+	for crop_type in CROP_DATA.CropType.values():
+		var crop_data: CROP_DATA = CROP_DATA.get_crop_data(crop_type);
+		if not crop_data:
+			push_warning("Failed to get crop data for type: " + str(crop_type));
+			continue;
+
+		# Create new button
+		var button: Button = Button.new();
+		button.name = crop_data.crop_name + "Button";
+		button.texture_filter = TextureFilter.TEXTURE_FILTER_NEAREST;
+		button.custom_minimum_size = Vector2(61.68, 35);
+		button.size_flags_horizontal = Control.SIZE_SHRINK_CENTER;
+		button.size_flags_vertical = Control.SIZE_SHRINK_CENTER;
+		button.theme = load("res://_game_lib/UI/game_theme.tres");
+
+		# Set text and icon
+		button.text = "$" + str(crop_type + 1); # Simple pricing for demo
+		if crop_icon_map.has(crop_type):
+			button.icon = crop_icon_map[crop_type];
+
+		# Connect signal
+		button.pressed.connect(_on_crop_selected.bind(crop_type));
+
+		# Add to container
+		grid_container.add_child(button);
+
+		# Store references
+		crop_button_map[crop_type] = button;
+		buttons_array.append(button);
+
+func _clear_existing_buttons() -> void:
+	# Clear existing button mappings and array
+	crop_button_map.clear();
+	buttons_array.clear();
+
+	# Remove existing button children from grid container
+	for child in grid_container.get_children():
+		if child is Button:
+			child.queue_free();
 
 func _on_crop_selected(crop_type: CROP_DATA.CropType) -> void:
 	# Toggle selection logic
@@ -75,4 +107,69 @@ func update_button_selection() -> void:
 		var selected_button: Button = crop_button_map[selected_crop];
 		if selected_button:
 			selected_button.modulate = Color(0.8, 1.0, 0.8, 1.0); # Green tint for selected
+
+# Public methods for dynamic crop management
+func add_crop_button(crop_type: CROP_DATA.CropType, custom_price: String = "") -> void:
+	"""Add a new crop button to the UI"""
+	var crop_data: CROP_DATA = CROP_DATA.get_crop_data(crop_type);
+	if not crop_data:
+		push_warning("Cannot add button for unknown crop type: " + str(crop_type));
+		return;
+
+	# Check if button already exists
+	if crop_button_map.has(crop_type):
+		push_warning("Button already exists for crop type: " + str(crop_type));
+		return;
+
+	# Create button
+	var button: Button = Button.new();
+	button.name = crop_data.crop_name + "Button";
+	button.texture_filter = TextureFilter.TEXTURE_FILTER_NEAREST;
+	button.custom_minimum_size = Vector2(61.68, 35);
+	button.size_flags_horizontal = Control.SIZE_SHRINK_CENTER;
+	button.size_flags_vertical = Control.SIZE_SHRINK_CENTER;
+	button.theme = load("res://_game_lib/UI/game_theme.tres");
+
+	# Set text and icon
+	if custom_price.is_empty():
+		button.text = "$" + str(crop_type + 1);
+	else:
+		button.text = custom_price;
+
+	if crop_icon_map.has(crop_type):
+		button.icon = crop_icon_map[crop_type];
+
+	# Connect signal
+	button.pressed.connect(_on_crop_selected.bind(crop_type));
+
+	# Add to container
+	grid_container.add_child(button);
+
+	# Store references
+	crop_button_map[crop_type] = button;
+	buttons_array.append(button);
+
+func remove_crop_button(crop_type: CROP_DATA.CropType) -> void:
+	"""Remove a crop button from the UI"""
+	if not crop_button_map.has(crop_type):
+		push_warning("No button found for crop type: " + str(crop_type));
+		return;
+
+	var button: Button = crop_button_map[crop_type];
+	if button:
+		button.queue_free();
+
+	# Remove from mappings
+	crop_button_map.erase(crop_type);
+	buttons_array.erase(button);
+
+	# Clear selection if it was the selected crop
+	if selected_crop == crop_type:
+		selected_crop = null;
+		seed_selected.emit(null);
+		update_button_selection();
+
+func refresh_buttons() -> void:
+	"""Recreate all buttons (useful if crop data changes)"""
+	_create_crop_buttons();
 	
