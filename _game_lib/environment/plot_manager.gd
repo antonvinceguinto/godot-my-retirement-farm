@@ -50,12 +50,12 @@ func _on_seed_selected(crop_data: CROP_DATA) -> void:
 
 	# If no seed is selected (deselected), clear all plot selections
 	if crop_data == null:
-		for plot in plots:
+		for plot: Plot in plots:
 			plot.set_selected(false);
 		return;
 
 	# If a seed is selected, mark all empty plots as selectable
-	for plot in plots:
+	for plot: Plot in plots:
 		if plot.current_plant == null:
 			plot.set_selected(true);
 

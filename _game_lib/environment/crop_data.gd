@@ -2,6 +2,7 @@ class_name CropData
 extends Resource
 
 enum CropType {
+	NONE,
 	TOMATO,
 	POTATO,
 	WHEAT,
@@ -32,6 +33,8 @@ static func get_crop_data(type: CropType) -> CropData:
 	data.crop_type = type;
 	
 	match type:
+		CropType.NONE:
+			data = null;
 		CropType.TOMATO:
 			data.crop_name = "Tomato";
 			data.stage_durations = [2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 0.0]; # 6 stages: 5 growth + 1 mature

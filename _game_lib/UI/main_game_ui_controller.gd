@@ -10,7 +10,7 @@ const PLOT_MANAGER = preload("res://_game_lib/environment/plot_manager.gd");
 @onready var grid_container: GridContainer = %GridContainer;
 
 # Dynamic button management
-var selected_crop = null;
+var selected_crop: CROP_DATA.CropType = CROP_DATA.CropType.NONE;
 var plot_manager: PLOT_MANAGER;
 var crop_button_map: Dictionary = {};
 var buttons_array: Array[Button] = [];
@@ -44,7 +44,7 @@ func _create_crop_buttons() -> void:
 	_clear_existing_buttons();
 
 	# Create buttons for each available crop type
-	for crop_type in CROP_DATA.CropType.values():
+	for crop_type: CROP_DATA.CropType in CROP_DATA.CropType.values():
 		var crop_data: CROP_DATA = CROP_DATA.get_crop_data(crop_type);
 		if not crop_data:
 			push_warning("Failed to get crop data for type: " + str(crop_type));
@@ -80,14 +80,14 @@ func _clear_existing_buttons() -> void:
 	buttons_array.clear();
 
 	# Remove existing button children from grid container
-	for child in grid_container.get_children():
+	for child: Node in grid_container.get_children():
 		if child is Button:
 			child.queue_free();
 
 func _on_crop_selected(crop_type: CROP_DATA.CropType) -> void:
 	# Toggle selection logic
 	if selected_crop == crop_type:
-		selected_crop = null;
+		selected_crop = CROP_DATA.CropType.NONE;
 		seed_selected.emit(null);
 	else:
 		selected_crop = crop_type;
@@ -165,7 +165,7 @@ func remove_crop_button(crop_type: CROP_DATA.CropType) -> void:
 
 	# Clear selection if it was the selected crop
 	if selected_crop == crop_type:
-		selected_crop = null;
+		selected_crop = CROP_DATA.CropType.NONE;
 		seed_selected.emit(null);
 		update_button_selection();
 

@@ -16,8 +16,8 @@ enum DroneState {
 # Signals
 signal arrived_at_plot;
 
-@onready var drone_sprite = $DroneSprite;
-@onready var dust_sprite = $DustSprite;
+@onready var drone_sprite: AnimatedSprite2D = $DroneSprite;
+@onready var dust_sprite: AnimatedSprite2D = $DustSprite;
 
 # Timers
 @onready var check_timer: Timer = Timer.new();
@@ -73,7 +73,7 @@ func _physics_process(delta: float) -> void:
 		_handle_movement(delta);
 
 func _handle_movement(delta: float) -> void:
-	var final_target_pos = target_position;
+	var final_target_pos: Vector2 = target_position;
 	
 	# Calculate direction to target using cached squared distance for performance
 	var distance_squared: float = global_position.distance_squared_to(final_target_pos);

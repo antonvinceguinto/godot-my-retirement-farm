@@ -65,7 +65,7 @@ func _physics_process(_delta: float) -> void:
 
 
 func _handle_movement() -> void:
-	var final_target_pos = target_position;
+	var final_target_pos: Vector2 = target_position;
 	
 	# Calculate direction to target using cached squared distance for performance
 	var distance_squared: float = global_position.distance_squared_to(final_target_pos);
